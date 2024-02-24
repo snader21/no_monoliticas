@@ -15,6 +15,9 @@ class TipoCompania(enum.Enum):
     ARRENDATARIO = "ARRENDATARIO"
     ARRENDADOR = "ARRENDADOR"
 
+class TipoPersona(enum.Enum):
+    NATURAL = "NATURAL"
+    JURIDICA = "JURIDICA"
 
 class EnumField(fields.Field):
     def _serialize(self, value, attr, obj, **kwargs):
@@ -25,6 +28,7 @@ class EnumField(fields.Field):
 
 class Compania(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    tipoPersona = db.Column(db.Enum(TipoPersona))
     nombre = db.Column(db.String(100))
     tipo = db.Column(db.Enum(TipoCompania))
     pais = db.Column(db.String(100))
