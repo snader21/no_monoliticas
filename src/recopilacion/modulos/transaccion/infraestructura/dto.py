@@ -28,6 +28,7 @@ class Transaccion(db.Model):
     tipo = db.Column(db.Enum(TipoTransaccion))
     compania_origen = db.Column(UUID(as_uuid=True))
     compania_destino = db.Column(UUID(as_uuid=True))
+    pais_compania_origen = db.Column(db.String(100))
     valor_transaccion_subtotal = db.Column(db.Integer)
     impuesto_transaccion = db.Column(db.Integer)
     valor_transaccion_total = db.Column(db.Integer)
