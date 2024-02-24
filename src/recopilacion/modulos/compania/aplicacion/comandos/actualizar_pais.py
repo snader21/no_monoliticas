@@ -1,6 +1,5 @@
 from src.recopilacion.modulos.compania.dominio.reglas import PaisesValidos
 from src.recopilacion.modulos.compania.dominio.repositorios import RepositorioCompanias
-from src.recopilacion.modulos.compania.infraestructura.schema.v1.eventos import EventoPaisActualizado, PaisActualizadoPayload
 from src.recopilacion.seedwork.infraestructura import utils
 from .base import CrearCompaniaBaseHandler
 from src.recopilacion.modulos.compania.infraestructura.dto import Compania

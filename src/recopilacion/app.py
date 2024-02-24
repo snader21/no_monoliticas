@@ -10,7 +10,7 @@ from src.recopilacion.api.transaccion import anadir_endpoint_transaccion
 
 def comenzar_consumidor():
     import threading
-    import src.recopilacion.modulos.compania.infraestructura.consumidores as cliente
+    import src.recopilacion.modulos.transaccion.infraestructura.consumidores as cliente
     # Suscripción a eventos
     threading.Thread(target=cliente.suscribirse_a_eventos).start()
 
