@@ -30,6 +30,13 @@ class Transaccion(AgregacionRaiz):
         self.impuesto_transaccion = transaccion.impuesto_transaccion
         self.valor_transaccion_total = transaccion.valor_transaccion_total
 
+        self.calcular_impuestos()
+
+    def actualizar_impuesto(self, nuevo_pais: str):
+        self.pais_transaccion_origen = nuevo_pais
+        self.calcular_impuestos()
+
+    def calcular_impuestos(self):
         if self.pais_transaccion_origen == "Colombia":
             self.impuesto_transaccion = self.valor_transaccion_subtotal * 0.19
         elif self.pais_transaccion_origen == "Ecuador":
@@ -39,9 +46,3 @@ class Transaccion(AgregacionRaiz):
 
         self.valor_transaccion_total = self.valor_transaccion_subtotal + \
             self.impuesto_transaccion
-
-    def actualizar_impuesto(self, nuevo_pais: str):
-        pass
-        # self.estado = ov.EstadoReserva.APROBADA
-
-        # self.agregar_evento(ReservaAprobada(self.id, self.fecha_actualizacion))

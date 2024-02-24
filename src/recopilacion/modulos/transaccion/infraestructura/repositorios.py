@@ -28,6 +28,11 @@ class RepositorioTransaccionesPostgress(RepositorioTransacciones):
             TransaccionDTO).filter_by(id=str(id)).one()
         return self.fabrica_transaccion.crear_objeto(reserva_dto, MapeadorTransaccion())
 
+    def obtener_por_compania_origen_id(self, id: UUID) -> Transaccion:
+        reserva_dto = db.session.query(
+            TransaccionDTO).filter_by(compania_origen=str(id)).one()
+        return self.fabrica_transaccion.crear_objeto(reserva_dto, MapeadorTransaccion())
+
     def agregar(self, transaccion: Transaccion):
         transaccion_dto = self.fabrica_transaccion.crear_objeto(
             transaccion, MapeadorTransaccion())

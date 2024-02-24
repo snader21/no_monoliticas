@@ -22,8 +22,10 @@ class ServicioReserva(Servicio):
     def actualizar_impuestos(self, comania_origen_id: str, nuevo_pais: str):
         repositorio = self.fabrica_repositorio.crear_objeto(
             RepositorioTransacciones.__class__)
-        transacciones = self._fabrica_compania.crear_objeto(
-            repositorio.obtener_por_compania_origen_id(comania_origen_id), MapeadorTransaccion())
+
+        transacciones = repositorio.obtener_por_compania_origen_id(
+            comania_origen_id)
+
         for transaccion in transacciones:
             transaccion.actualizar_impuesto(nuevo_pais)
-            # llamar metodo actualizar del repo
+            self.fabrica_repositorio.actualizar(transaccion)
