@@ -16,7 +16,8 @@ class PaisesValidos(ReglaNegocio):
     def es_valido(self) -> bool:
         paises_validos = ['Colombia', 'Ecuador', 'Peru']
         return self.pais in paises_validos
-    
+
+
 class CompaniasDiferentes(ReglaNegocio):
 
     def __init__(self, compania_origen, compania_destino, mensaje='La compania origen tiene que ser diferente a la compania destino'):
@@ -26,7 +27,8 @@ class CompaniasDiferentes(ReglaNegocio):
 
     def es_valido(self) -> bool:
         return self.compania_origen != self.compania_destino
-    
+
+
 class ValorTransaccionPositivo(ReglaNegocio):
 
     def __init__(self, valor_transaccion_subtotal, mensaje='El valor de la transaccion debe ser positivo'):
@@ -35,3 +37,13 @@ class ValorTransaccionPositivo(ReglaNegocio):
 
     def es_valido(self) -> bool:
         return self.valor_transaccion_subtotal > 0
+
+
+class EsRequerido(ReglaNegocio):
+
+    def __init__(self, valor, mensaje='El valor es requerido'):
+        super().__init__(mensaje)
+        self.valor = valor
+
+    def es_valido(self) -> bool:
+        return self.valor is not None and self.valor != ''

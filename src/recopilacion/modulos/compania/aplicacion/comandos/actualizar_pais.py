@@ -15,7 +15,6 @@ class ActualizarPais(Comando):
 class ActualizarPaisHandler(CrearCompaniaBaseHandler):
 
     def handle(self, comando: ActualizarPais):
-        print(f"Actualizando el pais a {comando.nuevo_pais}")
         repositorio = self.fabrica_repositorio.crear_objeto(MapeadorCompania.__class__)
         self.fabrica_compania.validar_regla(PaisesValidos(comando.nuevo_pais))
         compania = repositorio.obtener_por_id(comando._id)
