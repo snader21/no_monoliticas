@@ -1,4 +1,5 @@
 import pulsar,_pulsar  
+from src.recopilacion.app import app
 from pulsar.schema import *
 import uuid
 import time
@@ -18,7 +19,8 @@ def suscribirse_a_eventos():
         while True:
             mensaje = consumidor.receive()
             print(f'Evento recibido desde transacciones: {mensaje.value()}')
-            ServicioReserva().actualizar_impuestos(mensaje.value().id_compania, mensaje.value().pais_nuevo)
+            with app.app_context():
+                ServicioReserva().actualizar_impuestos(mensaje.value().id_compania, mensaje.value().pais_nuevo)
             consumidor.acknowledge(mensaje)     
 
         cliente.close()

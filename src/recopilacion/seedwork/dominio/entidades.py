@@ -43,3 +43,6 @@ class AgregacionRaiz(Entidad, ValidarReglasMixin):
     
     def limpiar_eventos(self):
         self.eventos = list()
+    
+    def actualizar_impuesto(self):
+        pass

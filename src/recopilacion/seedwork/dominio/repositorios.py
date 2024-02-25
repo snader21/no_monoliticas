@@ -14,6 +14,10 @@ class Repositorio(ABC):
     def obtener_por_id(self, id: UUID) -> Entidad:
         ...
 
+    @abstractmethod
+    def obtener_por_compania_origen_id(self, id: UUID) -> list[Entidad]:
+        ...
+
     # @abstractmethod
     # def obtener_todos(self) -> list[Entidad]:
     #     ...

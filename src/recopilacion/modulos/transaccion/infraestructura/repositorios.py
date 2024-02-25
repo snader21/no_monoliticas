@@ -28,10 +28,10 @@ class RepositorioTransaccionesPostgress(RepositorioTransacciones):
             TransaccionDTO).filter_by(id=str(id)).one()
         return self.fabrica_transaccion.crear_objeto(reserva_dto, MapeadorTransaccion())
 
-    def obtener_por_compania_origen_id(self, id: UUID) -> Transaccion:
-        reserva_dto = db.session.query(
-            TransaccionDTO).filter_by(compania_origen=str(id)).one()
-        return self.fabrica_transaccion.crear_objeto(reserva_dto, MapeadorTransaccion())
+    def obtener_por_compania_origen_id(self, id: UUID) -> list[Transaccion]:
+        transacciones = db.session.query(
+            TransaccionDTO).filter_by(compania_origen=str(id)).all()
+        return [self.fabrica_transaccion.crear_objeto(transaccion_dto, MapeadorTransaccion()) for transaccion_dto in transacciones]
 
     def agregar(self, transaccion: Transaccion):
         transaccion_dto = self.fabrica_transaccion.crear_objeto(
@@ -42,9 +42,11 @@ class RepositorioTransaccionesPostgress(RepositorioTransacciones):
     def actualizar(self, transaccion: Transaccion):
         transaccion_dto = db.session.query(TransaccionDTO).filter_by(
             id=str(transaccion._id)).one()
-        transaccion_dto.nombre = transaccion.nombre
-        transaccion_dto.identificacion = transaccion.identificacion
-        transaccion_dto.pais = transaccion.pais
-        transaccion_dto.tipo = transaccion.tipo
-        transaccion_dto.tipoPersona = transaccion.tipoPersona
+        transaccion_dto.descripcion = transaccion.descripcion
+        transaccion_dto.compania_origen = transaccion.compania_origen
+        transaccion_dto.compania_destino = transaccion.compania_destino
+        transaccion_dto.pais_transaccion_origen = transaccion.pais_transaccion_origen
+        transaccion_dto.valor_transaccion_subtotal = transaccion.valor_transaccion_subtotal
+        transaccion_dto.impuesto_transaccion = transaccion.impuesto_transaccion
+        transaccion_dto.valor_transaccion_total = transaccion.valor_transaccion_total
         db.session.commit()

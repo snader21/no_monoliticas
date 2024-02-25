@@ -25,6 +25,9 @@ class RepositorioCompaniasPostgress(RepositorioCompanias):
     def obtener_por_id(self, id: UUID) -> Compania:
         reserva_dto = db.session.query(CompaniaDTO).filter_by(id=str(id)).one()
         return self.fabrica_compania.crear_objeto(reserva_dto, MapeadorCompania())
+    
+    def obtener_por_compania_origen_id(self, id: UUID) -> Compania:
+        pass
 
     def agregar(self, compania: Compania):
         compania_dto = self.fabrica_compania.crear_objeto(compania, MapeadorCompania())

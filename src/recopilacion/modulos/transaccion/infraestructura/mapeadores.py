@@ -25,8 +25,9 @@ class MapeadorTransaccion(Mapeador):
 
     def dto_a_entidad(self, dto: TransaccionDTO) -> Transaccion:
         transaccion = Transaccion()
+        transaccion._id = dto.id
         transaccion.descripcion = dto.descripcion
-        transaccion.tipo = TipoTransaccion(dto.tipo)
+        transaccion.tipo = dto.tipo
         transaccion.compania_origen = dto.compania_origen
         transaccion.compania_destino = dto.compania_destino
         transaccion.pais_transaccion_origen = dto.pais_transaccion_origen
