@@ -14,7 +14,7 @@ services:
     networks:
       - pulsar
     volumes:
-      - ./data/zookeeper:/pulsar/data/zookeeper
+      - ./data/zookeeper-new:/pulsar/data/zookeeper
     environment:
       - metadataStoreUrl=zk:zookeeper:2181
     command: >
@@ -63,7 +63,7 @@ services:
         condition: service_completed_successfully
   # Map the local directory to the container to avoid bookie startup failure due to insufficient container disks.
     volumes:
-      - ./data/bookkeeper:/pulsar/data/bookkeeper
+      - ./data/bookkeeper-new:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf
       && exec bin/pulsar bookie"
 # Start broker
@@ -94,12 +94,3 @@ services:
       - "8080:8080"
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf
       &&  exec bin/pulsar broker"
-#database
-  db:
-    image: "postgres:latest"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=pda
-    ports:
-      - "5432:5432"
