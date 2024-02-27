@@ -2,19 +2,16 @@ version: "3.8"
 networks:
   pulsar:
     driver: bridge
-  sidecar:
-    driver: bridge
 services:
 # Start zookeeper
   zookeeper:
     image: apachepulsar/pulsar:latest
-    profiles: ["pulsar"]
     container_name: zookeeper
     restart: on-failure
     networks:
       - pulsar
     volumes:
-      - ./data/zookeeper-new:/pulsar/data/zookeeper
+      - ./data/zookeeper-test:/pulsar/data/zookeeper
     environment:
       - metadataStoreUrl=zk:zookeeper:2181
     command: >
@@ -31,7 +28,6 @@ services:
     container_name: pulsar-init
     hostname: pulsar-init
     image: apachepulsar/pulsar:latest
-    profiles: ["pulsar"]
     networks:
       - pulsar
     command: >
@@ -47,7 +43,6 @@ services:
 # Start bookie
   bookie:
     image: apachepulsar/pulsar:latest
-    profiles: ["pulsar"]
     container_name: bookie
     restart: on-failure
     networks:
@@ -63,13 +58,12 @@ services:
         condition: service_completed_successfully
   # Map the local directory to the container to avoid bookie startup failure due to insufficient container disks.
     volumes:
-      - ./data/bookkeeper-new:/pulsar/data/bookkeeper
+      - ./data/bookkeeper-test:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf
       && exec bin/pulsar bookie"
 # Start broker
   broker:
     image: apachepulsar/pulsar:latest
-    profiles: ["pulsar"]
     container_name: broker
     hostname: broker
     restart: on-failure
@@ -83,7 +77,7 @@ services:
       - managedLedgerDefaultWriteQuorum=1
       - managedLedgerDefaultAckQuorum=1
       - advertisedAddress=broker
-      - advertisedListeners=external:pulsar://127.0.0.1:6650
+      - advertisedListeners=external:pulsar://broker:6650
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -93,4 +87,48 @@ services:
       - "6650:6650"
       - "8080:8080"
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf
-      &&  exec bin/pulsar broker"
+      &&  exec bin/pulsar broker && pulsar-admin topics create persistent://public/default/eventos-compania"
+    
+    healthcheck:
+      test: ["CMD", "bash", "-c", "pulsar-admin topics list persistent://public/default/eventos-compania"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  db:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=pda
+    ports:
+      - "5432:5432"
+    networks:
+      - pulsar
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  recopilacion:
+    build: .
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=pda
+      - BROKER_HOST=broker
+    restart: always
+    networks:
+      - pulsar
+    depends_on:
+      broker:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:3000"
+
+  
