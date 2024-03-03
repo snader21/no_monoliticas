@@ -2,7 +2,7 @@ from pulsar.schema import *
 from src.seedwork.infraestructura.schema.v1.eventos import EventoIntegracion
 
 
-class TransaccionCreadaPayload(Record):
+class VentaRealizadaPayload(Record):
     id_propiedad = String()
     compania_destino_id = String()
 
