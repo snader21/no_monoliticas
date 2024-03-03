@@ -26,7 +26,7 @@ class ServicioPropiedad(Servicio):
         propiedad.actualizar_compania_duena(nueva_compania)
         repositorio.actualizar(propiedad)
 
-    def actualizar_datos_geograficos(self, propiedad_id: str, latitud: float, longitud: float):
+    def actualizar_datos_geograficos(self, propiedad_id: str, latitud: str, longitud: str):
         repositorio = self.fabrica_repositorio.crear_objeto(
             RepositorioPropiedades.__class__)
         propiedad = repositorio.obtener_por_id(
