@@ -27,3 +27,4 @@ class ServicioReserva(Servicio):
         for transaccion in transacciones:
             transaccion.actualizar_impuesto(nuevo_pais)
             repositorio.actualizar(transaccion)
+
