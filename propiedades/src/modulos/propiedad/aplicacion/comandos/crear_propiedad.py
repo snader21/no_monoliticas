@@ -16,8 +16,8 @@ class CrearPropiedad(Comando):
     direccion: str
     tamano: int
     pais_ubicacion: str
-    latitud: str
-    longitud: str
+    latitud: float
+    longitud: float
 
 
 class CrearPropiedadHandler(CrearPropiedadBaseHandler):
