@@ -1,6 +1,5 @@
 from pulsar.schema import *
 
-
 class VentaRealizadaPayload(Record):
     id_propiedad = String()
     compania_destino_id = String()
@@ -8,9 +7,8 @@ class VentaRealizadaPayload(Record):
 
 class DatosGeograficosActualizadosPayload(Record):
     id_propiedad = String()
-    latitud = String()
-    longitud = String()
-    estrato = String()
+    latitud = Float()
+    longitud = Float()
 
 
 class PropiedadCreadaPayload(Record):

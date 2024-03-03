@@ -16,5 +16,5 @@ class Propiedad(db.Model):
     direccion = db.Column(db.String(100))
     tamano = db.Column(db.Integer)
     pais_ubicacion = db.Column(db.String(100))
-    latitud = db.Column(db.String(100), nullable=True)
-    longitud = db.Column(db.String(100), nullable=True)
+    latitud = db.Column(db.Float, nullable=True)
+    longitud = db.Column(db.Float, nullable=True)

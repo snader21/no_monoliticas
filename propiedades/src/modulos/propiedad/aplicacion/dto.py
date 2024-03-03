@@ -9,5 +9,5 @@ class PropiedadDTO(DTO):
     direccion: str = field(default_factory=str)
     tamano: int = field(default_factory=int)
     pais_ubicacion: str = field(default_factory=str)
-    latitud: str = field(default_factory=str)
-    longitud: str = field(default_factory=str)
+    latitud: float = field(default_factory=float)
+    longitud: float = field(default_factory=float)
