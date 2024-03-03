@@ -6,6 +6,7 @@ from src.modulos.propiedad.dominio.entidades import Propiedad
 from src.modulos.propiedad.dominio.repositorios import RepositorioPropiedades
 from src.seedwork.aplicacion.comandos import Comando
 from src.seedwork.aplicacion.comandos import ejecutar_commando as comando
+from pydispatch import dispatcher
 
 
 @dataclass
@@ -37,6 +38,7 @@ class CrearPropiedadHandler(CrearPropiedadBaseHandler):
         repositorio = self.fabrica_repositorio.crear_objeto(
             RepositorioPropiedades.__class__)
         repositorio.agregar(propiedad)
+        dispatcher.send(signal='PropiedadCreadaIntegracion', evento=propiedad)
 
 
 @comando.register(CrearPropiedad)

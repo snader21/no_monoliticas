@@ -34,7 +34,6 @@ class RepositorioPropiedadesPostgress(RepositorioPropiedades):
         db.session.commit()
 
     def actualizar(self, propiedad: Propiedad):
-        print('identificador:' + str(propiedad._id))
         propiedad_dto = db.session.query(
             PropiedadDTO).filter_by(id=str(propiedad._id)).one()
         propiedad_dto.compania_duena = propiedad.compania_duena
@@ -42,4 +41,6 @@ class RepositorioPropiedadesPostgress(RepositorioPropiedades):
         propiedad_dto.direccion = propiedad.direccion
         propiedad_dto.tamano = propiedad.tamano
         propiedad_dto.pais_ubicacion = propiedad.pais_ubicacion
+        propiedad_dto.latitud = propiedad.latitud
+        propiedad_dto.longitud = propiedad.longitud
         db.session.commit()
