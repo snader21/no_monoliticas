@@ -1,6 +1,4 @@
 from pulsar.schema import *
-from src.seedwork.infraestructura.schema.v1.eventos import EventoIntegracion
-
 
 class VentaRealizadaPayload(Record):
     id_propiedad = String()
@@ -16,7 +14,3 @@ class DatosGeograficosActualizadosPayload(Record):
 class PropiedadCreadaPayload(Record):
     id_propiedad = String()
     direccion = String()
-
-
-class EventoPropiedadCreada(EventoIntegracion):
-    data = PropiedadCreadaPayload()
