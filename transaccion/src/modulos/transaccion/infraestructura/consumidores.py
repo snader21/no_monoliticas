@@ -5,7 +5,7 @@ import uuid
 import time
 import logging
 import traceback
-from transaccion.src.modulos.transaccion.aplicacion.servicios import ServicioReserva
+from transaccion.src.modulos.transaccion.aplicacion.servicios import ServicioTransaccion
 
 from transaccion.src.modulos.transaccion.infraestructura.schema.v1.eventos import PaisActualizadoPayload
 from transaccion.src.seedwork.infraestructura import utils
@@ -20,7 +20,7 @@ def suscribirse_a_eventos():
             mensaje = consumidor.receive()
             print(f'Evento recibido desde transacciones: {mensaje.value()}')
             with app.app_context():
-                ServicioReserva().actualizar_impuestos(mensaje.value().id_compania, mensaje.value().pais_nuevo)
+                ServicioTransaccion().actualizar_impuestos(mensaje.value().id_compania, mensaje.value().pais_nuevo)
             consumidor.acknowledge(mensaje)     
 
         cliente.close()

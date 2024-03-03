@@ -18,6 +18,7 @@ class Transaccion(AgregacionRaiz):
     valor_transaccion_subtotal: int = field(hash=True, default=None)
     impuesto_transaccion: int = field(hash=True, default=None)
     valor_transaccion_total: int = field(hash=True, default=None)
+    id_propiedad: str = field(hash=True, default=None)
 
     def crear_transaccion(self, transaccion: Transaccion):
 
@@ -29,6 +30,7 @@ class Transaccion(AgregacionRaiz):
         self.valor_transaccion_subtotal = transaccion.valor_transaccion_subtotal
         self.impuesto_transaccion = transaccion.impuesto_transaccion
         self.valor_transaccion_total = transaccion.valor_transaccion_total
+        self.id_propiedad = transaccion.id_propiedad
 
         self.calcular_impuestos()
 

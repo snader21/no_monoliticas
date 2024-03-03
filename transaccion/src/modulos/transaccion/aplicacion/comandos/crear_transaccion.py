@@ -1,3 +1,4 @@
+from asyncore import dispatcher
 from dataclasses import dataclass
 from transaccion.src.modulos.transaccion.aplicacion.comandos.base import CrearTransaccionBaseHandler
 from transaccion.src.modulos.transaccion.aplicacion.dto import TransaccionDTO
@@ -16,6 +17,7 @@ class CrearTransaccion(Comando):
     compania_destino: str
     pais_transaccion_origen: str
     valor_transaccion_subtotal: int
+    id_propiedad: str
 
 
 class CrearTransaccionHandler(CrearTransaccionBaseHandler):
@@ -27,7 +29,8 @@ class CrearTransaccionHandler(CrearTransaccionBaseHandler):
             compania_origen=comando.compania_origen,
             compania_destino=comando.compania_destino,
             pais_transaccion_origen=comando.pais_transaccion_origen,
-            valor_transaccion_subtotal=comando.valor_transaccion_subtotal
+            valor_transaccion_subtotal=comando.valor_transaccion_subtotal,
+            id_propiedad=comando.id_propiedad
         )
 
         transaccion: Transaccion = self.fabrica_transaccion.crear_objeto(
@@ -37,6 +40,7 @@ class CrearTransaccionHandler(CrearTransaccionBaseHandler):
         repositorio = self.fabrica_repositorio.crear_objeto(
             RepositorioTransacciones.__class__)
         repositorio.agregar(transaccion)
+        dispatcher.send(signal='VentaRealizadaDominio', evento=transaccion)
 
 
 @comando.register(CrearTransaccion)

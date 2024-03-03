@@ -10,3 +10,4 @@ class TransaccionDTO(DTO):
     compania_destino: field(default_factory=str)
     pais_transaccion_origen: field(default_factory=str)
     valor_transaccion_subtotal: field(default_factory=int)
+    id_propiedad: field(default_factory=str)

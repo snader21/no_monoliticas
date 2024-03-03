@@ -15,8 +15,9 @@ class MapeadorTransaccionDTOJson(AppMap):
         compania_destino = externo.get("compania_destino")
         pais_transaccion_origen = externo.get("pais_transaccion_origen")
         valor_transaccion_subtotal = externo.get("valor_transaccion_subtotal")
+        id_propiedad = externo.get("id_propiedad")
         transaccion_dto = TransaccionDTO(
-            descripcion, tipo, compania_origen, compania_destino, pais_transaccion_origen, valor_transaccion_subtotal)
+            descripcion, tipo, compania_origen, compania_destino, pais_transaccion_origen, valor_transaccion_subtotal, id_propiedad)
         return transaccion_dto
 
     def dto_a_externo(self, dto: TransaccionDTO) -> dict:
@@ -31,12 +32,13 @@ class MapeadorTransaccion(RepMap):
 
     def entidad_a_dto(self, entidad: Transaccion) -> TransaccionDTO:
         descripcion = entidad.descripcion
-        tipo = entidad.tipo
-        compania_origen = entidad.compania_origen
-        compania_destino = entidad.compania_destino
+        tipo = entidad.tipo.value
+        compania_origen = str(entidad.compania_origen)
+        compania_destino = str(entidad.compania_destino)
         pais_transaccion_origen = entidad.pais_transaccion_origen
         valor_transaccion_subtotal = entidad.valor_transaccion_subtotal
-        return TransaccionDTO(descripcion, tipo, compania_origen, compania_destino, pais_transaccion_origen, valor_transaccion_subtotal)
+        id_propiedad = str(entidad.id_propiedad)
+        return TransaccionDTO(descripcion, tipo, compania_origen, compania_destino, pais_transaccion_origen, valor_transaccion_subtotal, id_propiedad)
 
     def dto_a_entidad(self, dto: TransaccionDTO) -> Transaccion:
         transaccion = Transaccion()
@@ -46,4 +48,5 @@ class MapeadorTransaccion(RepMap):
         transaccion.compania_destino = dto.compania_destino
         transaccion.pais_transaccion_origen = dto.pais_transaccion_origen
         transaccion.valor_transaccion_subtotal = dto.valor_transaccion_subtotal
+        transaccion.id_propiedad = dto.id_propiedad
         return transaccion

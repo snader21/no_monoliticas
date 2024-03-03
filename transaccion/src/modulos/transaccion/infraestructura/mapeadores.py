@@ -21,6 +21,7 @@ class MapeadorTransaccion(Mapeador):
         transaccion_dto.valor_transaccion_subtotal = entidad.valor_transaccion_subtotal
         transaccion_dto.impuesto_transaccion = entidad.impuesto_transaccion
         transaccion_dto.valor_transaccion_total = entidad.valor_transaccion_total
+        transaccion_dto.id_propiedad = entidad.id_propiedad
         return transaccion_dto
 
     def dto_a_entidad(self, dto: TransaccionDTO) -> Transaccion:
@@ -34,4 +35,5 @@ class MapeadorTransaccion(Mapeador):
         transaccion.valor_transaccion_subtotal = dto.valor_transaccion_subtotal
         transaccion.impuesto_transaccion = dto.impuesto_transaccion
         transaccion.valor_transaccion_total = dto.valor_transaccion_total
+        transaccion.id_propiedad = dto.id_propiedad
         return transaccion

@@ -32,6 +32,7 @@ class Transaccion(db.Model):
     valor_transaccion_subtotal = db.Column(db.Integer)
     impuesto_transaccion = db.Column(db.Integer)
     valor_transaccion_total = db.Column(db.Integer)
+    id_propiedad = db.Column(UUID(as_uuid=True))
 
 
 # class OfferBasicSchema(Schema):

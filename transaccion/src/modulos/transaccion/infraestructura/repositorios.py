@@ -27,6 +27,10 @@ class RepositorioTransaccionesPostgress(RepositorioTransacciones):
         reserva_dto = db.session.query(
             TransaccionDTO).filter_by(id=str(id)).one()
         return self.fabrica_transaccion.crear_objeto(reserva_dto, MapeadorTransaccion())
+    
+    def obtener_todos(self) -> list[Transaccion]:
+        transacciones = db.session.query(TransaccionDTO).all()
+        return [self.fabrica_transaccion.crear_objeto(transaccion_dto, MapeadorTransaccion()) for transaccion_dto in transacciones]
 
     def obtener_por_compania_origen_id(self, id: UUID) -> list[Transaccion]:
         transacciones = db.session.query(
@@ -49,4 +53,5 @@ class RepositorioTransaccionesPostgress(RepositorioTransacciones):
         transaccion_dto.valor_transaccion_subtotal = transaccion.valor_transaccion_subtotal
         transaccion_dto.impuesto_transaccion = transaccion.impuesto_transaccion
         transaccion_dto.valor_transaccion_total = transaccion.valor_transaccion_total
+        transaccion_dto.id_propiedad = transaccion.id_propiedad
         db.session.commit()

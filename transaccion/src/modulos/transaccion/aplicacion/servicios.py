@@ -5,7 +5,7 @@ from transaccion.src.modulos.transaccion.infraestructura.repositorios import Rep
 from transaccion.src.seedwork.aplicacion.servicios import Servicio
 
 
-class ServicioReserva(Servicio):
+class ServicioTransaccion(Servicio):
 
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
@@ -18,6 +18,11 @@ class ServicioReserva(Servicio):
     @property
     def fabrica_vuelos(self):
         return self._fabrica_transaccion
+
+    def obtener_transacciones(self):
+        repositorio = self.fabrica_repositorio.crear_objeto(
+            RepositorioTransacciones.__class__)
+        return repositorio.obtener_todos()
 
     def actualizar_impuestos(self, comania_origen_id: str, nuevo_pais: str):
         repositorio = self.fabrica_repositorio.crear_objeto(
