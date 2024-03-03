@@ -3,36 +3,34 @@ from seedwork.dominio.entidades import AgregacionRaiz
 import src.dominio.objetos_valor as ov
 from dataclasses import dataclass, field
 import random
+from pydispatch import dispatcher
 
 
 @dataclass
 class Propiedad(AgregacionRaiz):
+    id: str = field(hash=True, default=None)
     direccion: str = field(hash=True, default=None)
-    tamanio: str = field(hash=True, default=None)
-    compania_duenia: str = field(hash=True, default=None)
-    compania_arrendataria: str = field(hash=True, default=None)
     ubcacion_geografica: ov.UbicacionGeografica = field(hash=True, default=None)
     estrato: str = field(hash=True, default=None)
 
 
     def crear_propiedad(self, propiedad: Propiedad):
+        self.id = propiedad.id
         self.direccion = propiedad.direccion
-        self.tamanio = propiedad.tamanio
-        self.compania_duenia = propiedad.compania_duenia
-        self.compania_arrendataria = propiedad.compania_arrendataria
         self.ubicacion_geografica = propiedad.ubcacion_geografica
         self.estrato = propiedad.estrato
         self.machingLearning()
 
 
     def machingLearning(self):
-       if(self.ubicacion_geografica == ''):
-           self.calcular_ubicacion_geofrafica(self.direccion)
-       if(self.estrato == ''):
-           self.calcular_estrato()
+        if(self.ubicacion_geografica == ''):
+           self.calcular_ubicacion_geofrafica()
+        if(self.estrato == ''):
+           self.calcular_estrato()   
+        dispatcher.send(signal='PropiedadDominio', evento=self)
 
 
-    def calcular_ubicacion_geofrafica(self, direccion):    
+    def calcular_ubicacion_geofrafica(self):    
         # Generar latitud y longitud
         ubicacion: ov.UbicacionGeografica = {}
         ubicacion.latitud = "{}° {}' {}″".format(self.generar_coordenada())

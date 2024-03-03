@@ -13,6 +13,9 @@ class ServicioPropiead(Servicio):
         return self.fabrica_propiedades
 
     
-    def maching_learning(self, propiedad: Propiedad):
+    def maching_learning(self, idPropiedad, direccion):
+        propiedad: Propiedad = {}
+        propiedad.id = idPropiedad
+        propiedad.direccion = direccion
         propiedad.machingLearning()
         
