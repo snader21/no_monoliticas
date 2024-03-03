@@ -4,6 +4,7 @@ from transaccion.src.modulos.transaccion.aplicacion.comandos.base import CrearTr
 from transaccion.src.modulos.transaccion.aplicacion.dto import TransaccionDTO
 from transaccion.src.modulos.transaccion.aplicacion.mapeadores import MapeadorTransaccion
 from transaccion.src.modulos.transaccion.dominio.entidades import Transaccion
+from transaccion.src.modulos.transaccion.dominio.objetos_valor import TipoTransaccion
 from transaccion.src.modulos.transaccion.infraestructura.repositorios import RepositorioTransacciones
 from transaccion.src.seedwork.aplicacion.comandos import Comando
 from transaccion.src.seedwork.aplicacion.comandos import ejecutar_commando as comando
@@ -40,7 +41,8 @@ class CrearTransaccionHandler(CrearTransaccionBaseHandler):
         repositorio = self.fabrica_repositorio.crear_objeto(
             RepositorioTransacciones.__class__)
         repositorio.agregar(transaccion)
-        dispatcher.send(signal='VentaRealizadaDominio', evento=transaccion)
+        if(TipoTransaccion(transaccion.tipo) == TipoTransaccion.VENTA):
+            dispatcher.send(signal='VentaRealizadaDominio', evento=transaccion)
 
 
 @comando.register(CrearTransaccion)
