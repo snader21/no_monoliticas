@@ -14,7 +14,7 @@ from src.modulos.propiedad.infraestructura.schema.v1.eventos import (
 from src.seedwork.infraestructura import utils
 
 
-def suscribirse_a_eventos_de_transaccion():
+def suscribirse_a_eventos_de_transacciones():
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')

@@ -1,6 +1,6 @@
 from src.modulos.propiedad.dominio.fabricas import FabricaPropiedad
 from src.modulos.propiedad.infraestructura.fabricas import FabricaRepositorio
-from src.modulos.propiedad.infraestructura.repositorios import RepositorioPropiedad
+from src.modulos.propiedad.infraestructura.repositorios import RepositorioPropiedades
 from src.seedwork.aplicacion.servicios import Servicio
 
 
@@ -20,7 +20,7 @@ class ServicioPropiedad(Servicio):
 
     def actualizar_compania_duena(self, propiedad_id: str, nueva_compania: str):
         repositorio = self.fabrica_repositorio.crear_objeto(
-            RepositorioPropiedad.__class__)
+            RepositorioPropiedades.__class__)
         propiedad = repositorio.obtener_por_id(
             propiedad_id)
         propiedad.actualizar_compania_duena(nueva_compania)
@@ -28,7 +28,7 @@ class ServicioPropiedad(Servicio):
 
     def actualizar_datos_geograficos(self, propiedad_id: str, latitud: float, longitud: float):
         repositorio = self.fabrica_repositorio.crear_objeto(
-            RepositorioPropiedad.__class__)
+            RepositorioPropiedades.__class__)
         propiedad = repositorio.obtener_por_id(
             propiedad_id)
         propiedad.actualizar_datos_geograficos(latitud, longitud)

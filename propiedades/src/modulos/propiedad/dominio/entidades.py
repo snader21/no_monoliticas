@@ -21,7 +21,7 @@ class Propiedad(AgregacionRaiz):
         self.tamano = propiedad.tamano
         self.pais_ubicacion = propiedad.pais_ubicacion
 
-    def actualizar_compania_dueña(self, nueva_compania: str):
+    def actualizar_compania_duena(self, nueva_compania: str):
         self.compania_duena = nueva_compania
 
     def actualizar_datos_geograficos(self, latitud: float, longitud: float):
