@@ -2,7 +2,7 @@ import pulsar
 from pulsar.schema import *
 
 from src.infrastructura.util import broker_host
-from src.dominio.eventos import PropiedadActualizada
+from src.infrastructura.schema.V1.eventos import UbicacionActualizadaPayload
 
 
 class Despachador:
@@ -10,7 +10,7 @@ class Despachador:
         try: 
             print('Publicando en el topico ya con el maching learnig ' + str(mensaje))
             cliente = pulsar.Client(f'pulsar://{broker_host()}:6650')
-            publicador = cliente.create_producer(topico, schema=AvroSchema(PropiedadActualizada))
+            publicador = cliente.create_producer(topico, schema=AvroSchema(UbicacionActualizadaPayload))
             publicador.send(mensaje)
             cliente.close()
         except Exception as e:
@@ -20,10 +20,11 @@ class Despachador:
 
     def publicar_evento(self, evento, topico):
         print(f'Evento: {evento}')
-        payload = PropiedadActualizada(
-            id_compania=str(evento.id), 
-            ubicacion=evento.ubicacion,
-            estrato=str(evento.etrato)
+        payload = UbicacionActualizadaPayload(
+            id_propiedad=str(evento.id), 
+            latitud=str(evento.ubicacion_geografica.latitud),
+            longitud=str(evento.ubicacion_geografica.longitud),
+            estrato=str(evento.estrato)
         )
-        self._publicar_mensaje(payload, topico, AvroSchema(PropiedadActualizada))
+        self._publicar_mensaje(payload, topico, AvroSchema(UbicacionActualizadaPayload))
 

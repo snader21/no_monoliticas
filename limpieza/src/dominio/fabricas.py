@@ -1,9 +1,8 @@
 
 from dataclasses import dataclass
-from seedwork.dominio.fabricas import Fabrica
-from seedwork.dominio.repositorios import Mapeador
-from seedwork.dominio.entidades import Entidad
-from seedwork.dominio.entidades import Tra
+from src.seedwork.dominio.fabricas import Fabrica
+from src.seedwork.dominio.repositorios import Mapeador
+from src.seedwork.dominio.entidades import Entidad
 from src.dominio.entidades import Propiedad
 
 @dataclass

@@ -1,12 +1,11 @@
-import app
 import pulsar,_pulsar  
 from pulsar.schema import *
 import logging
 import traceback
-from infrastructura.util import broker_host
-from infrastructura.schema.V1.eventos import PropiedadActualizadaPayload
+from src.infrastructura.util import broker_host
+from src.infrastructura.schema.V1.eventos import PropiedadActualizadaPayload
 from src.aplicacion.servicios import ServicioPropiead
-
+from src.app import app
 
 
 def suscribirse_a_eventos():
@@ -19,9 +18,8 @@ def suscribirse_a_eventos():
             mensaje = consumidor.receive()
             print(f'Evento recibido desde algun lado, no se cual: {mensaje.value()}')
             with app.app_context():
-                ServicioPropiead().maching_learning(mensaje.value())
+                ServicioPropiead().maching_learning(mensaje.value().id_propiedad, mensaje.value().direccion)
             consumidor.acknowledge(mensaje)     
-        cliente.close()
     except:
         logging.error('ERROR: Suscribiendose al tópico de eventos!')
         traceback.print_exc()

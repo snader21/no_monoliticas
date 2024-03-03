@@ -32,6 +32,5 @@ class Despachador:
             id_propiedad=str(evento.id),
             direccion=str(evento.direccion)
         )
-        evento_integracion = PropiedadCreadaPayload(data=payload)
         self._publicar_mensaje(
-            evento_integracion, topico, AvroSchema(PropiedadCreadaPayload))
+            payload, topico, AvroSchema(PropiedadCreadaPayload))

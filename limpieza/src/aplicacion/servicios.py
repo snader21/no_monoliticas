@@ -1,7 +1,6 @@
-from src.seedwork.dominio.entidades import Ser
 from src.dominio.fabricas import FabricaPropiedad
 from src.dominio.entidades import Propiedad
-from seedwork.aplicacion.servicios import Servicio
+from src.seedwork.aplicacion.servicios import Servicio
 
 
 class ServicioPropiead(Servicio):
@@ -14,8 +13,10 @@ class ServicioPropiead(Servicio):
 
     
     def maching_learning(self, idPropiedad, direccion):
-        propiedad: Propiedad = {}
+        propiedad: Propiedad = Propiedad()
         propiedad.id = idPropiedad
         propiedad.direccion = direccion
+        propiedad.ubcacion_geografica = ''
+        propiedad.estrato = ''
         propiedad.machingLearning()
         
