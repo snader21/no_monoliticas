@@ -1,4 +1,4 @@
-from asyncore import dispatcher
+from pydispatch import dispatcher
 from dataclasses import dataclass
 from transaccion.src.modulos.transaccion.aplicacion.comandos.base import CrearTransaccionBaseHandler
 from transaccion.src.modulos.transaccion.aplicacion.dto import TransaccionDTO
