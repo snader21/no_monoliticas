@@ -6,7 +6,7 @@ class VentaRealizadaPayload(Record):
     compania_destino_id = String()
 
 
-class DatosGeograficosActualizadosPayload(Record):
+class UbicacionActualizadaPayload(Record):
     id_propiedad = String()
     latitud = String()
     longitud = String()

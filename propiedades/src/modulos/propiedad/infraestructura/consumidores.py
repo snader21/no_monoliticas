@@ -9,7 +9,7 @@ from src.app import app
 from src.modulos.propiedad.aplicacion.servicios import ServicioPropiedad
 from src.modulos.propiedad.infraestructura.schema.v1.eventos import (
     VentaRealizadaPayload,
-    DatosGeograficosActualizadosPayload
+    UbicacionActualizadaPayload
 )
 from src.seedwork.infraestructura import utils
 
@@ -49,16 +49,16 @@ def suscribirse_a_eventos_de_limpieza():
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
 
-        # Consumidor para DatosGeograficosActualizadosPayload
+        # Consumidor para UbicacionActualizadaPayload
         consumidor_datos_geo = cliente.subscribe(
             'eventos-limpieza',
             consumer_type=_pulsar.ConsumerType.Shared,
             subscription_name='sub-eventos-datos-limpieza',
-            schema=AvroSchema(DatosGeograficosActualizadosPayload)
+            schema=AvroSchema(UbicacionActualizadaPayload)
         )
 
         while True:
-            # Recepción de eventos de DatosGeograficosActualizadosPayload
+            # Recepción de eventos de UbicacionActualizadaPayload
             mensaje_datos_geo = consumidor_datos_geo.receive()
             print(
                 f'Evento de datos geográficos actualizados recibido: {mensaje_datos_geo.value()}')

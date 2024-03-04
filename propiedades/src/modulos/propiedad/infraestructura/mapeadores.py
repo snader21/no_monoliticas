@@ -11,7 +11,7 @@ class MapeadorPropiedad(Mapeador):
 
     def entidad_a_dto(self, entidad: Propiedad) -> PropiedadDTO:
         propiedad_dto = PropiedadDTO()
-
+        propiedad_dto.id = str(entidad._id)
         propiedad_dto.compania_duena = entidad.compania_duena
         propiedad_dto.compania_arrendataria = entidad.compania_arrendataria
         propiedad_dto.direccion = entidad.direccion

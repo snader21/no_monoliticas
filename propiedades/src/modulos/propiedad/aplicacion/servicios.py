@@ -31,5 +31,7 @@ class ServicioPropiedad(Servicio):
             RepositorioPropiedades.__class__)
         propiedad = repositorio.obtener_por_id(
             propiedad_id)
+        print("PROPIEDAD!!!!!")
+        print(propiedad)
         propiedad.actualizar_datos_geograficos(latitud, longitud)
         repositorio.actualizar(propiedad)
