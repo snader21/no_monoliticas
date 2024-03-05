@@ -3,6 +3,17 @@
 Esta implementacion inicial, quiere demostrar como con el uso de la arquitectura hexagonal y una buena division de la logica de dominio, podemos realizar modificaciones por ejemplo al ingresar en un nuevo pais que tiene unas politicas diferentes para el calculo de los valores de las transacciones, y estas solo deben realizarse a 
 un unico componente dentro del codigo sin afectar las demas partes del servicio, ademas al manejarse por eventos de dominio, los demas microservicios son agnosticos a este cambio y seguiran operando sin verse afectados por el cambio
 
+## Actividades realizadas por cada integrante
+
+- **Said**: Encargado del desarrollo del microservicio de propiedades, así como de la realización de pruebas de escenarios de calidad para garantizar su funcionamiento óptimo. Su dedicación fue del 25% para el proyecto.
+
+- **Andres**: Responsable de refactorizar el microservicio de transacciones y compañía, convirtiéndolo de un monolito a una arquitectura más modular, y llevando a cabo pruebas exhaustivas de escenarios de calidad para asegurar su robustez y eficiencia. Su dedicación fue del 25% para el proyecto.
+
+- **Ricardo**: Encargado del desarrollo del microservicio de limpieza, gestionando consumidores y despachadores de eventos, además de llevar a cabo pruebas de escenarios de calidad para garantizar su correcto funcionamiento en diversas situaciones. Su dedicación fue del 25% para el proyecto.
+
+- **Fabian**: Responsable del desarrollo del microservicio de limpieza, junto con la implementación de consumidores y despachadores de eventos, y realización de pruebas de escenarios de calidad para asegurar su rendimiento y fiabilidad. Su dedicación fue del 25% para el proyecto.
+
+
 ## Estructura del proyecto
 
 - El microservicio se encuentra en la raiz del proyecto en la carpeta **src\recopilacion** el cual tiene dos modulos, el de compañias y el de transacciones.
