@@ -5,13 +5,14 @@ from transaccion.src.modulos.transaccion.aplicacion.comandos.crear_transaccion i
 from transaccion.src.seedwork.aplicacion.comandos import ejecutar_commando
 from transaccion.src.seedwork.aplicacion.queries import ejecutar_query
 from transaccion.src.modulos.transaccion.aplicacion.queries.obtener_transacciones import ObtenerTransacciones
+from transaccion.src.modulos.transaccion.aplicacion.queries.obtener_transaccion_por_id import ObtenerTransaccionPorId
 from transaccion.src.seedwork.dominio.excepciones import ExcepcionDominio
 from transaccion.src.modulos.transaccion.aplicacion.mapeadores import MapeadorTransaccionDTOJson
 
 
 def anadir_endpoint_transaccion(api):
     api.add_resource(TransaccionEndPoints, '/transacciones')
-    api.add_resource(TransaccionIdEndPoints, '/transacciones/<id_compania>')
+    api.add_resource(TransaccionIdEndPoints, '/transacciones/<id_transaccion>')
 
 
 class TransaccionEndPoints(Resource):
@@ -35,5 +36,9 @@ class TransaccionEndPoints(Resource):
 
 
 class TransaccionIdEndPoints(Resource):
-    def post(self):
-        return "hello world"
+    def get(self, id_transaccion):
+        if id_transaccion is None:
+            return Response(json.dumps(dict(error="debe proporcionar el id de la compania a obtener")), status=400, mimetype='application/json')
+        query_resultado = ejecutar_query(ObtenerTransaccionPorId(id=id_transaccion))
+        map_reserva = MapeadorTransaccionDTOJson()
+        return map_reserva.dto_a_externo(query_resultado.resultado)

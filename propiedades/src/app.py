@@ -12,7 +12,7 @@ def comenzar_consumidor():
     # Suscripción a eventos
     threading.Thread(
         target=cliente.suscribirse_a_eventos_de_transacciones).start()
-    # threading.Thread(target=cliente.suscribirse_a_eventos_de_limpieza).start()
+    threading.Thread(target=cliente.suscribirse_a_eventos_de_limpieza).start()
 
 
 app = create_app('development')
