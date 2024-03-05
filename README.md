@@ -114,12 +114,12 @@ Cree una propiedad mediante el EndPoint: (POST) http://127.0.0.1:5002/propiedade
 ```
 **Verifique en la base de datos que la propiedad se haya creado correctamente (si el servicio de limpieza estaba en ejecucion las columnas latitud y longitud deberian estar calculadas)
 
-Cree una transaccion de tipo venta asociada a la propiedad que acaba de crear mediante el EndPoint: http://127.0.0.1:5000/transacciones pasando el siguiente payload
+Cree una transaccion de tipo venta asociada a la propiedad que acaba de crear mediante el EndPoint: http://127.0.0.1:5001/transacciones pasando el siguiente payload
 ```
 {
     "descripcion": "transaccion de venta",
     "tipoPersona": "JURIDICA",
-    "tipo": "ARRIENDO",
+    "tipo": "VENTA",
     "compania_origen": "9a57dbf2-97e7-438f-84f1-8ae5334517e1",
     "compania_destino": "456c61c2-ac03-4a03-a361-5e6ceeb812da",
     "pais_transaccion_origen": "Ecuador",
