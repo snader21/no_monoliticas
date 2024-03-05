@@ -7,7 +7,7 @@ un unico componente dentro del codigo sin afectar las demas partes del servicio,
 
 - **Said**: Encargado del desarrollo del microservicio de propiedades, así como de la realización de pruebas de escenarios de calidad para garantizar su funcionamiento óptimo. Su dedicación fue del 25% para el proyecto.
 
-- **Andres**: Responsable de refactorizar el microservicio de transacciones y compañía, convirtiéndolo de un monolito a una arquitectura más modular, y llevando a cabo pruebas exhaustivas de escenarios de calidad para asegurar su robustez y eficiencia. Su dedicación fue del 25% para el proyecto.
+- **Andres**: Responsable de refactorizar el microservicio de transacciones y compañía, convirtiéndolo de un monolito a dos microservicios independientes comunicados por eventos y llevando a cabo pruebas exhaustivas de escenarios de calidad para asegurar su robustez y eficiencia. Su dedicación fue del 25% para el proyecto.
 
 - **Ricardo**: Encargado del desarrollo del microservicio de limpieza, gestionando consumidores y despachadores de eventos, además de llevar a cabo pruebas de escenarios de calidad para garantizar su correcto funcionamiento en diversas situaciones. Su dedicación fue del 25% para el proyecto.
 
