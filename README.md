@@ -1,25 +1,32 @@
 # Escenarios de calidad trabajados
-## Escenario #1 Modificabilidad
+## Escenario #1 Modificabilidad (Lógica de transacciones en un nuevo mercado)
 
-Esta implementacion inicial, quiere demostrar como con el uso de la arquitectura hexagonal y una buena division de la logica de dominio, podemos realizar modificaciones por ejemplo al ingresar en un nuevo pais que tiene unas politicas diferentes para el calculo de los valores de las transacciones, y estas solo deben realizarse a 
-un unico componente dentro del codigo sin afectar las demas partes del servicio, ademas al manejarse por eventos de dominio, los demas microservicios son agnosticos a este cambio y seguiran operando sin verse afectados por el cambio
+Esta implementación inicial tiene como objetivo destacar la efectividad de la arquitectura hexagonal y una adecuada división de la lógica de dominio. Esto se evidencia al realizar modificaciones, como ingresar a un nuevo país con políticas distintas para el cálculo de valores de transacciones. Estas modificaciones se aplican de manera focalizada a un único componente dentro del código, sin afectar otras partes del servicio. Gracias a la gestión mediante eventos de dominio, los demás microservicios permanecen agnósticos a estos cambios y continúan operando sin verse afectados por las actualizaciones realizadas.
+![image](https://github.com/snader21/no_monoliticas/assets/124009412/55291b55-2b7a-4609-9c85-de399f774f1b)
 
-## Escenario #2 Disponibilidad
+## Escenario #2 Disponibilidad (El sistema ante ingesta de grandes volúmenes de información, sigue haciendo consultas sin lentitudes)
 
+En esta segunda implementación, observamos cómo el empleo de arquitecturas orientadas a eventos y el patrón CQS nos posibilita mantener una respuesta eficaz ante solicitudes de consulta, incluso en situaciones de elevada demanda. Esto se debe a que cada microservicio opera de manera independiente. Por ejemplo, al crear una transacción de tipo VENTA que requiere la actualización de una propiedad, el microservicio de transacciones no espera a que dicha actualización se complete. Esta independencia garantiza que las consultas no se vean afectadas por bloqueos, permitiendo que se realicen sin experimentar alteraciones en sus tiempos de respuesta.
+![image](https://github.com/snader21/no_monoliticas/assets/124009412/7c60dfb9-1e7f-4cf0-ac15-b91a062c9f28)
 
-## Escenario #3 Disponibilidad
+## Escenario #3 Disponibilidad (Ante el fallo de un componente el sistema sigue funcionando correctamente ante la recolecciónn de información)
+En este escenario, destacamos otra ventaja de los microservicios y los tópicos de eventos. En este caso, nos interesa observar cómo, si un componente suscriptor (como el microservicio de limpieza) está inactivo, ello no afecta la operación normal del aplicativo. Además, cuando dicho componente se reactiva, tiene la capacidad de retomar las tareas que fueron publicadas en el tópico durante su ausencia. Este enfoque previene la pérdida de información ante posibles fallos, asegurando una continuidad efectiva en la gestión de eventos incluso en circunstancias adversas.
+![image](https://github.com/snader21/no_monoliticas/assets/124009412/3f1ffa0a-d8e4-4527-b0d3-9c212c8007ac)
 
 
 ## Actividades realizadas por cada integrante
 
-- **Said**: Encargado del desarrollo del microservicio de propiedades, así como de la realización de pruebas de escenarios de calidad para garantizar su funcionamiento óptimo. Su dedicación fue del 25% para el proyecto.
+- **Said Nader**: Encargado del desarrollo del microservicio de propiedades, así como de la realización de pruebas de escenarios de calidad para garantizar su funcionamiento óptimo. Su dedicación fue del 25% para el proyecto.
 
-- **Andres**: Responsable de refactorizar el microservicio de transacciones y compañía, convirtiéndolo de un monolito a dos microservicios independientes comunicados por eventos y llevando a cabo pruebas exhaustivas de escenarios de calidad para asegurar su robustez y eficiencia. Su dedicación fue del 25% para el proyecto.
+- **Andres Martinez**: Responsable de refactorizar el microservicio de transacciones y compañía, convirtiéndolo de un monolito a dos microservicios independientes comunicados por eventos y llevando a cabo pruebas exhaustivas de escenarios de calidad para asegurar su robustez y eficiencia. Su dedicación fue del 25% para el proyecto.
 
-- **Ricardo**: Encargado del desarrollo del microservicio de limpieza, gestionando consumidores y despachadores de eventos, además de llevar a cabo pruebas de escenarios de calidad para garantizar su correcto funcionamiento en diversas situaciones. Su dedicación fue del 25% para el proyecto.
+- **Ricardo Vivas**: Encargado del desarrollo del microservicio de limpieza, gestionando consumidores y despachadores de eventos, además de llevar a cabo pruebas de escenarios de calidad para garantizar su correcto funcionamiento en diversas situaciones. Su dedicación fue del 25% para el proyecto.
 
-- **Fabian**: Responsable del desarrollo del microservicio de limpieza, junto con la implementación de consumidores y despachadores de eventos, y realización de pruebas de escenarios de calidad para asegurar su rendimiento y fiabilidad. Su dedicación fue del 25% para el proyecto.
+- **Fabian Orozco**: Responsable del desarrollo del microservicio de limpieza, junto con la implementación de consumidores y despachadores de eventos, y realización de pruebas de escenarios de calidad para asegurar su rendimiento y fiabilidad. Su dedicación fue del 25% para el proyecto.
 
+## Consideraciones
+- En la actualidad, la comunicación entre todos nuestros microservicios se realiza mediante eventos delta. Este enfoque permite evitar el envío completo del payload de una entidad al reescribir el estado o el historial. Para la definición de estos esquemas, hemos optado por utilizar AVRO. Cada microservicio cuenta con su propia definición incorporada en la capa de infraestructura, lo que contribuye a una implementación más eficiente y a una gestión más precisa de la información intercambiada entre los servicios.
+- En nuestra implementación actual, hemos adoptado un modelo de persistencia para el estado basado en las operaciones CRUD. Esta elección se debe, en parte, a la familiaridad del equipo de desarrollo con este enfoque. Además, la consideración de Event Sourcing se descartó debido a que su implementación hubiera añadido complejidad al desarrollo. En este caso, habríamos tenido que modificar nuestros eventos, pasando de un formato delta a un formato más completo, lo cual habría implicado cambios sustanciales en la arquitectura existente.
 
 ## Estructura del proyecto
 
