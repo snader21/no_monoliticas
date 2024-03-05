@@ -1,7 +1,14 @@
-# Tutorial para correr nuestro proyecto - Escenario de calidad #1 Modificabilidad
+# Escenarios de calidad trabajados
+## Escenario #1 Modificabilidad
 
 Esta implementacion inicial, quiere demostrar como con el uso de la arquitectura hexagonal y una buena division de la logica de dominio, podemos realizar modificaciones por ejemplo al ingresar en un nuevo pais que tiene unas politicas diferentes para el calculo de los valores de las transacciones, y estas solo deben realizarse a 
 un unico componente dentro del codigo sin afectar las demas partes del servicio, ademas al manejarse por eventos de dominio, los demas microservicios son agnosticos a este cambio y seguiran operando sin verse afectados por el cambio
+
+## Escenario #2 Disponibilidad
+
+
+## Escenario #3 Disponibilidad
+
 
 ## Actividades realizadas por cada integrante
 
@@ -25,8 +32,8 @@ un unico componente dentro del codigo sin afectar las demas partes del servicio,
 - Las entidades de persistencia se encuentran en la capa de infraestructura de cada modulo Ej. **src\recopilacion\modulos\transaccion\infraestructura\dto.py**
 - Las entidades de dominio, mediante las cuales implementamos la logica de negocio se encuentran en la capa de dominio EJ. **src\recopilacion\modulos\transaccion\dominio\entidades.py**
 
-## Servicio de recoleccion
-### Ejecutar Aplicación
+## Tutorial para correr nuestro proyecto
+### Paso 1 Ejecutar apache pulsar y base de datos
 
 Desde el directorio principal ejecute el siguiente comando.
 
@@ -34,7 +41,19 @@ Desde el directorio principal ejecute el siguiente comando.
 docker compose up -d
 ```
 
-**Nota* Una vez ejecutado el contenedor, es probable que la aplicacion de flask no este corriendo, de ser el caso intente arrancando manualmente dicho servicio.
+**Nota* Una vez ejecutado el contenedor, debera correr manualmente los microservicios (La idea es que en la ultima entrega ya podamos tener esto desplegado en el docker compose, pero por ahora es necesario correrlos por separado).
+
+### Paso 2 Ejecutar los microservicios
+Desde el directorio principal ejecute en consolas separadas los siguientes comandos.
+
+```Bash
+flask --app ./compania/src/app.py run --port=5000 #Microservicio de compañias
+flask --app ./transaccion/src/app.py run --port=5001 #Microservicio de transacciones
+flask --app ./propiedades/src/app.py run --port=5002 #Microservicio de propiedades
+flask --app ./limpieza/src/app.py run --port=5003 #Microservicio de limpieza
+```
+
+
 
 ### Ejecutar pruebas
 Para las pruebas crear una compañia inicialmente apuntando a al endpoint: (POST) http://127.0.0.1:5000/companias pasando este payload,
@@ -50,16 +69,17 @@ Para las pruebas crear una compañia inicialmente apuntando a al endpoint: (POST
 ```
 **Verifique en la base de datos que la compañia se haya creado correctamente 
 
-Luego asocie una transaccion a esa compañia mediante el EndPoint: (POST) http://127.0.0.1:5000/transacciones pasando el siguiente payload
+Luego asocie una transaccion a esa compañia mediante el EndPoint: (POST) http://127.0.0.1:5001/transacciones pasando el siguiente payload
 ```
 {
     "descripcion": "transaccion de venta",
     "tipoPersona": "JURIDICA",
-    "tipo": "VENTA",
-    "compania_origen": "<<uuid de la compañia creada en la base de datos>>",
-    "compania_destino": "223c61c2-ac03-4a03-a361-5e6ceeb812da",
-    "pais_transaccion_origen": "Colombia",
-    "valor_transaccion_subtotal": 100
+    "tipo": "ARRIENDO",
+    "compania_origen": "9a57dbf2-97e7-438f-84f1-8ae5334517e1",
+    "compania_destino": "123c61c2-ac03-4a03-a361-5e6ceeb812da",
+    "pais_transaccion_origen": "Ecuador",
+    "valor_transaccion_subtotal": 100,
+    "id_propiedad": "2a7e6641-d76b-4f09-be62-27b3c10c40e0"
 }
 ```
 **Verifique en la base de datos que la transaccion se haya creado correctamente
@@ -74,3 +94,30 @@ Luego cambie de pais la compañia original mediante el EndPoint: (PATCH) http://
 
 Los paises que puede elejir son (Colombia, Peru, Ecuador)
 
+### Ejecutar pruebas entrega 2
+Cree una propiedad mediante el EndPoint: (POST) http://127.0.0.1:5002/propiedades pasando el siguiente payload
+```
+{
+    "compania_duena": "dbd9e097-2b6f-4795-b798-389af600a018",
+    "compania_arrendataria": "5f6a5bb7-a19d-47d8-b1a4-ed5ec3575108",
+    "direccion": "calle falsa 123",
+    "tamano": 99,
+    "pais_ubicacion": "Colombia"
+}
+```
+**Verifique en la base de datos que la propiedad se haya creado correctamente (si el servicio de limpieza estaba en ejecucion las columnas latitud y longitud deberian estar calculadas)
+
+Cree una transaccion de tipo venta asociada a la propiedad que acaba de crear mediante el EndPoint: http://127.0.0.1:5000/transacciones pasando el siguiente payload
+```
+{
+    "descripcion": "transaccion de venta",
+    "tipoPersona": "JURIDICA",
+    "tipo": "ARRIENDO",
+    "compania_origen": "9a57dbf2-97e7-438f-84f1-8ae5334517e1",
+    "compania_destino": "456c61c2-ac03-4a03-a361-5e6ceeb812da",
+    "pais_transaccion_origen": "Ecuador",
+    "valor_transaccion_subtotal": 100,
+    "id_propiedad": "2a7e6641-d76b-4f09-be62-27b3c10c40e0"
+}
+```
+**Verifique en la base de datos que el duaño de la propiedad se haya actualizado correctamente
