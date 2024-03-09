@@ -9,15 +9,17 @@ import datetime
 
 epoch = datetime.datetime.utcfromtimestamp(0)
 
+
 def unix_time_millis(dt):
     return (dt - epoch).total_seconds() * 1000.0
 
+
 class Despachador:
     def _publicar_mensaje(self, mensaje, topico, schema):
-        try: 
+        try:
             print('Publicando en el topico: ' + str(mensaje))
             cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-            publicador = cliente.create_producer(topico, schema=AvroSchema(VentaRealizadaPayload))
+            publicador = cliente.create_producer(topico, schema)
             publicador.send(mensaje)
             cliente.close()
         except Exception as e:
@@ -26,10 +28,11 @@ class Despachador:
 
     def publicar_evento(self, evento, topico):
         payload = VentaRealizadaPayload(
-            id_propiedad=str(evento.id_propiedad), 
+            id_propiedad=str(evento.id_propiedad),
             compania_destino_id=str(evento.compania_destino)
         )
-        self._publicar_mensaje(payload, topico, AvroSchema(VentaRealizadaPayload))
+        self._publicar_mensaje(
+            payload, topico, AvroSchema(VentaRealizadaPayload))
 
     def publicar_comando(self, comando, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
@@ -38,4 +41,5 @@ class Despachador:
             # agregar itinerarios
         )
         comando_integracion = ComandoCrearReserva(data=payload)
-        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearReserva))
+        self._publicar_mensaje(comando_integracion, topico,
+                               AvroSchema(ComandoCrearReserva))

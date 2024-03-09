@@ -27,7 +27,7 @@ class RepositorioTransaccionesPostgress(RepositorioTransacciones):
         reserva_dto = db.session.query(
             TransaccionDTO).filter_by(id=str(id)).one()
         return self.fabrica_transaccion.crear_objeto(reserva_dto, MapeadorTransaccion())
-    
+
     def obtener_todos(self) -> list[Transaccion]:
         transacciones = db.session.query(TransaccionDTO).all()
         return [self.fabrica_transaccion.crear_objeto(transaccion_dto, MapeadorTransaccion()) for transaccion_dto in transacciones]
@@ -42,6 +42,7 @@ class RepositorioTransaccionesPostgress(RepositorioTransacciones):
             transaccion, MapeadorTransaccion())
         db.session.add(transaccion_dto)
         db.session.commit()
+        return transaccion_dto.id
 
     def actualizar(self, transaccion: Transaccion):
         transaccion_dto = db.session.query(TransaccionDTO).filter_by(
