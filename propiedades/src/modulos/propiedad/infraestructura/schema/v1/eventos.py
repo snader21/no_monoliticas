@@ -16,3 +16,6 @@ class UbicacionActualizadaPayload(Record):
 class PropiedadCreadaPayload(Record):
     id_propiedad = String()
     direccion = String()
+
+class CreacionDePropiedadFallidaPayload(Record):
+    id_correlacion = String()

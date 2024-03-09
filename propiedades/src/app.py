@@ -10,9 +10,10 @@ def comenzar_consumidor():
     import threading
     import src.modulos.propiedad.infraestructura.consumidores as cliente
     # Suscripción a eventos
-    threading.Thread(
-        target=cliente.suscribirse_a_eventos_de_transacciones).start()
+    threading.Thread(target=cliente.suscribirse_a_eventos_de_transacciones).start()
     threading.Thread(target=cliente.suscribirse_a_eventos_de_limpieza).start()
+    threading.Thread(target=cliente.suscribirse_a_comando_creacion).start()
+    threading.Thread(target=cliente.suscribirse_a_comando_eliminacion).start()
 
 
 app = create_app('development')
