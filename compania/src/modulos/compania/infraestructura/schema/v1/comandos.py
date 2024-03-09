@@ -1,7 +1,7 @@
 from pulsar.schema import *
 from dataclasses import dataclass, field
 
-class ComandoCrearCompaniaPayload():
+class ComandoCrearCompaniaPayload(Record):
     tipoPersona=String()
     nombre=String()
     tipo=String()
@@ -9,5 +9,5 @@ class ComandoCrearCompaniaPayload():
     identificacion=String()
     id_correlacion = String()
 
-class ComandoBorrarCompaniaPayload():
+class ComandoBorrarCompaniaPayload(Record):
     id_compania = String()

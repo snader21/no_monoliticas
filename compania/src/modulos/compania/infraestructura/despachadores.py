@@ -16,7 +16,7 @@ class Despachador:
         try: 
             print('Publicando en el topico: ' + str(mensaje))
             cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-            publicador = cliente.create_producer(topico, schema)
+            publicador = cliente.create_producer(topico, schema=schema)
             publicador.send(mensaje)
             cliente.close()
         except Exception as e:

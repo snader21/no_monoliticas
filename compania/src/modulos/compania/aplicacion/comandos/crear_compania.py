@@ -27,7 +27,7 @@ class CrearCompaniaHandler(CrearCompaniaBaseHandler):
 
         compania: Compania = self.fabrica_compania.crear_objeto(compania_dto, MapeadorCompania())
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioCompanias.__class__)
-        repositorio.agregar(compania)       
+        repositorio.agregar(compania)
 
 
 @comando.register(CrearCompania)

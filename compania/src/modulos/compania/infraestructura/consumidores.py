@@ -5,7 +5,7 @@ import time
 import logging
 import traceback
 from compania.src.modulos.compania.aplicacion.servicios import ServicioCompania
-from src.app import app
+from compania.src.app import app
 from compania.src.modulos.compania.infraestructura.schema.v1.comandos import ComandoBorrarCompaniaPayload, ComandoCrearCompaniaPayload
 from compania.src.seedwork.infraestructura import utils
 

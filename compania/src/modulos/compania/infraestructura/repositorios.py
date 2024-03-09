@@ -33,6 +33,7 @@ class RepositorioCompaniasPostgress(RepositorioCompanias):
         compania_dto: CompaniaDTO = self.fabrica_compania.crear_objeto(compania, MapeadorCompania())
         db.session.add(compania_dto)
         db.session.commit()
+        print("COMPANIA ID", compania_dto.id)
         return compania_dto.id
 
     def actualizar(self, compania: Compania):

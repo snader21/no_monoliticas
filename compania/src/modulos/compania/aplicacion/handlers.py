@@ -13,6 +13,7 @@ class HandlerCompaniaIntegracion(Handler):
     
     @staticmethod
     def handle_compania_creada(id_compania):
+        print('HandlerCompaniaIntegracion.handle_compania_creada!!!!!!!')
         despachador = Despachador()
         despachador._publicar_mensaje(mensaje=CompaniaCreadaPayload(id_compania=id_compania), topico='compania-creada', schema=AvroSchema(CompaniaCreadaPayload))
     

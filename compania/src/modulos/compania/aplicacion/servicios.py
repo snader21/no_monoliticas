@@ -1,8 +1,8 @@
 from compania.src.modulos.compania.dominio.entidades import Compania
-from src.modulos.compania.dominio.fabricas import FabricaCompania
-from src.modulos.compania.infraestructura.fabricas import FabricaRepositorio
-from src.modulos.compania.infraestructura.repositorios import RepositorioCompanias
-from src.seedwork.aplicacion.servicios import Servicio
+from compania.src.modulos.compania.dominio.fabricas import FabricaCompania
+from compania.src.modulos.compania.infraestructura.fabricas import FabricaRepositorio
+from compania.src.modulos.compania.infraestructura.repositorios import RepositorioCompanias
+from compania.src.seedwork.aplicacion.servicios import Servicio
 from pydispatch import dispatcher
 
 class ServicioCompania(Servicio):

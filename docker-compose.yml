@@ -88,13 +88,12 @@ services:
       - "6650:6650"
       - "8080:8080"
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf
-      &&  exec bin/pulsar broker && pulsar-admin topics create persistent://public/default/eventos-compania"
-    
+      &&  exec bin/pulsar broker"
     healthcheck:
-      test: ["CMD", "bash", "-c", "pulsar-admin topics list persistent://public/default/eventos-compania"]
+      test: ["CMD", "pulsar-admin", "brokers", "list", "--url", "http://localhost:8080"]
       interval: 10s
       timeout: 5s
-      retries: 30
+      retries: 3
 
   db:
     image: "postgres:latest"
@@ -112,24 +111,24 @@ services:
       timeout: 5s
       retries: 5
 
-  # recopilacion:
-  #   build: .
-  #   environment:
-  #     - DB_USER=postgres
-  #     - DB_PASSWORD=postgres
-  #     - DB_HOST=db
-  #     - DB_PORT=5432
-  #     - DB_NAME=pda
-  #     - BROKER_HOST=broker
-  #   restart: always
-  #   networks:
-  #     - pulsar
-  #   depends_on:
-  #     broker:
-  #       condition: service_healthy
-  #     db:
-  #       condition: service_healthy
-  #   ports:
-  #     - "5000:3000"
+  compania:
+    build: ./compania/
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=pda
+      - BROKER_HOST=broker
+    restart: always
+    networks:
+      - pulsar
+    depends_on:
+      broker:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:3000"
 
   

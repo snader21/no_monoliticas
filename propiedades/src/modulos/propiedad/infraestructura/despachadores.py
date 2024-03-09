@@ -16,9 +16,9 @@ def unix_time_millis(dt):
 class Despachador:
     def _publicar_mensaje(self, mensaje, topico, schema):
         try:
-            print('Publicando en el topico: ' + str(mensaje))
+            print('Publicando en el topico: ' + str(topico))
             cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-            publicador = cliente.create_producer(topico, schema)
+            publicador = cliente.create_producer(topico, schema=schema)
             publicador.send(mensaje)
             cliente.close()
         except Exception as e:

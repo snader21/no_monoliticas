@@ -12,15 +12,15 @@ class ComandoCrearReserva(ComandoIntegracion):
     data = ComandoCrearReservaPayload()
 
 
-class ComandoCrearTransaccionPayload():
+class ComandoCrearTransaccionPayload(Record):
     descripcion = String()
     tipo = String()
     compania_origen = String()
     compania_destino = String()
     pais_transaccion_origen = String()
-    valor_transaccion_subtotal = Int()
+    valor_transaccion_subtotal = Integer()
     id_propiedad = String()
 
 
-class ComandoBorrarTransaccionPayload():
+class ComandoBorrarTransaccionPayload(Record):
     id_transaccion = String()

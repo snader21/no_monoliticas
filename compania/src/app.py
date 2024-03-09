@@ -7,7 +7,7 @@ from compania.src.modulos.compania.infraestructura.dto import Compania
 from compania.src.api.compania import anadir_endpoint_compania
 def comenzar_consumidor():
     import threading
-    import src.modulos.compania.infraestructura.consumidores as cliente
+    import compania.src.modulos.compania.infraestructura.consumidores as cliente
     # Suscripción a eventos
     threading.Thread(target=cliente.suscribirse_a_comando_creacion).start()
     threading.Thread(target=cliente.suscribirse_a_comando_eliminacion).start()
