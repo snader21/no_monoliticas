@@ -1,6 +1,6 @@
-from transaccion.src.seedwork.dominio.repositorios import Mapeador
-from transaccion.src.modulos.transaccion.dominio.objetos_valor import TipoTransaccion
-from transaccion.src.modulos.transaccion.dominio.entidades import Transaccion
+from src.seedwork.dominio.repositorios import Mapeador
+from src.modulos.transaccion.dominio.objetos_valor import TipoTransaccion
+from src.modulos.transaccion.dominio.entidades import Transaccion
 from .dto import Transaccion as TransaccionDTO
 
 

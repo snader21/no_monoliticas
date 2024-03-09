@@ -1,16 +1,16 @@
 import pulsar
 import _pulsar
-from transaccion.src.app import app
+from src.app import app
 from pulsar.schema import *
 import uuid
 import time
 import logging
 import traceback
-from transaccion.src.modulos.transaccion.aplicacion.servicios import ServicioTransaccion
+from src.modulos.transaccion.aplicacion.servicios import ServicioTransaccion
 
-from transaccion.src.modulos.transaccion.infraestructura.schema.v1.eventos import PaisActualizadoPayload
-from transaccion.src.seedwork.infraestructura import utils
-from transaccion.src.modulos.transaccion.infraestructura.schema.v1.comandos import ComandoCrearTransaccionPayload, ComandoBorrarTransaccionPayload
+from src.modulos.transaccion.infraestructura.schema.v1.eventos import PaisActualizadoPayload
+from src.seedwork.infraestructura import utils
+from src.modulos.transaccion.infraestructura.schema.v1.comandos import ComandoCrearTransaccionPayload, ComandoBorrarTransaccionPayload
 
 
 def suscribirse_a_eventos():

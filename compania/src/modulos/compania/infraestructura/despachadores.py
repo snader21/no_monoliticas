@@ -1,8 +1,8 @@
 import pulsar
 from pulsar.schema import *
 
-from compania.src.modulos.compania.infraestructura.schema.v1.eventos import PaisActualizadoPayload
-from compania.src.seedwork.infraestructura import utils
+from src.modulos.compania.infraestructura.schema.v1.eventos import PaisActualizadoPayload
+from src.seedwork.infraestructura import utils
 
 import datetime
 

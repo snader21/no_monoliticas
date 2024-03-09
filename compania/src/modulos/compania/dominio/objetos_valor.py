@@ -5,7 +5,7 @@ En este archivo usted encontrará los objetos valor del dominio de cliente
 """
 
 from enum import Enum
-from compania.src.seedwork.dominio.objetos_valor import ObjetoValor
+from src.seedwork.dominio.objetos_valor import ObjetoValor
 from dataclasses import dataclass
 
 class TipoPersona(Enum):

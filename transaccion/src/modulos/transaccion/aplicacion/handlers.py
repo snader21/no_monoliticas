@@ -1,7 +1,7 @@
-from transaccion.src.seedwork.aplicacion.handlers import Handler
-from transaccion.src.modulos.transaccion.infraestructura.despachadores import Despachador
+from src.seedwork.aplicacion.handlers import Handler
+from src.modulos.transaccion.infraestructura.despachadores import Despachador
 from pulsar.schema import AvroSchema
-from transaccion.src.modulos.transaccion.infraestructura.schema.v1.eventos import CreacionDeTransaccionFallidaPayload, TransaccionCreadaPayload
+from src.modulos.transaccion.infraestructura.schema.v1.eventos import CreacionDeTransaccionFallidaPayload, TransaccionCreadaPayload
 
 
 class HandlerTransaccionIntegracion(Handler):

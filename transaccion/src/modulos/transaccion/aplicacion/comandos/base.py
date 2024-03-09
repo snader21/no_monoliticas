@@ -1,6 +1,6 @@
-from transaccion.src.seedwork.aplicacion.comandos import ComandoHandler
-from transaccion.src.modulos.transaccion.infraestructura.fabricas import FabricaRepositorio
-from transaccion.src.modulos.transaccion.dominio.fabricas import FabricaTransaccion
+from src.seedwork.aplicacion.comandos import ComandoHandler
+from src.modulos.transaccion.infraestructura.fabricas import FabricaRepositorio
+from src.modulos.transaccion.dominio.fabricas import FabricaTransaccion
 
 class CrearTransaccionBaseHandler(ComandoHandler):
     def __init__(self):

@@ -2,9 +2,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import uuid
 
-import transaccion.src.modulos.transaccion.dominio.objetos_valor as ov
+import src.modulos.transaccion.dominio.objetos_valor as ov
 # from aeroalpes.modulos.vuelos.dominio.eventos import ReservaCreada, ReservaAprobada, ReservaCancelada, ReservaPagada
-from transaccion.src.seedwork.dominio.entidades import AgregacionRaiz
+from src.seedwork.dominio.entidades import AgregacionRaiz
 
 
 @dataclass

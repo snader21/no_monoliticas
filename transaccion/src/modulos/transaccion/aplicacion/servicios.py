@@ -1,9 +1,9 @@
-from transaccion.src.modulos.transaccion.dominio.fabricas import FabricaTransaccion
-from transaccion.src.modulos.transaccion.infraestructura.fabricas import FabricaRepositorio
-from transaccion.src.modulos.transaccion.infraestructura.mapeadores import MapeadorTransaccion
-from transaccion.src.modulos.transaccion.infraestructura.repositorios import RepositorioTransacciones
-from transaccion.src.seedwork.aplicacion.servicios import Servicio
-from transaccion.src.modulos.transaccion.dominio.entidades import Transaccion
+from src.modulos.transaccion.dominio.fabricas import FabricaTransaccion
+from src.modulos.transaccion.infraestructura.fabricas import FabricaRepositorio
+from src.modulos.transaccion.infraestructura.mapeadores import MapeadorTransaccion
+from src.modulos.transaccion.infraestructura.repositorios import RepositorioTransacciones
+from src.seedwork.aplicacion.servicios import Servicio
+from src.modulos.transaccion.dominio.entidades import Transaccion
 from pydispatch import dispatcher
 
 

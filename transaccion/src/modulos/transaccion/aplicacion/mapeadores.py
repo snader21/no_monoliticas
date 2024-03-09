@@ -1,8 +1,8 @@
-from transaccion.src.seedwork.aplicacion.dto import Mapeador as AppMap
+from src.seedwork.aplicacion.dto import Mapeador as AppMap
 from .dto import TransaccionDTO
-from transaccion.src.seedwork.dominio.repositorios import Mapeador as RepMap
-from transaccion.src.modulos.transaccion.dominio.entidades import Transaccion
-from transaccion.src.modulos.transaccion.dominio.objetos_valor import TipoTransaccion
+from src.seedwork.dominio.repositorios import Mapeador as RepMap
+from src.modulos.transaccion.dominio.entidades import Transaccion
+from src.modulos.transaccion.dominio.objetos_valor import TipoTransaccion
 
 from datetime import datetime
 

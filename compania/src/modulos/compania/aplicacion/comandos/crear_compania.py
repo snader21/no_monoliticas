@@ -1,10 +1,10 @@
-from compania.src.modulos.compania.aplicacion.mapeadores import MapeadorCompania
-from compania.src.modulos.compania.dominio.repositorios import RepositorioCompanias
+from src.modulos.compania.aplicacion.mapeadores import MapeadorCompania
+from src.modulos.compania.dominio.repositorios import RepositorioCompanias
 from .base import CrearCompaniaBaseHandler
-from compania.src.modulos.compania.infraestructura.dto import Compania
-from compania.src.seedwork.aplicacion.comandos import Comando
+from src.modulos.compania.infraestructura.dto import Compania
+from src.seedwork.aplicacion.comandos import Comando
 from dataclasses import dataclass, field
-from compania.src.seedwork.aplicacion.comandos import ejecutar_commando as comando
+from src.seedwork.aplicacion.comandos import ejecutar_commando as comando
 
 
 @dataclass

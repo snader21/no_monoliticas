@@ -1,9 +1,9 @@
-from compania.src.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
-from compania.src.seedwork.aplicacion.queries import ejecutar_query as query
-from compania.src.modulos.compania.infraestructura.repositorios import RepositorioCompanias
+from src.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
+from src.seedwork.aplicacion.queries import ejecutar_query as query
+from src.modulos.compania.infraestructura.repositorios import RepositorioCompanias
 from dataclasses import dataclass
 from .base import CompaniaQueryBaseHandler
-from compania.src.modulos.compania.aplicacion.mapeadores import MapeadorCompania
+from src.modulos.compania.aplicacion.mapeadores import MapeadorCompania
 import uuid
 
 

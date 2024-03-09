@@ -5,11 +5,11 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 
 """
 
-from compania.src import db
-from compania.src.modulos.compania.dominio.repositorios import RepositorioCompanias
+from src import db
+from src.modulos.compania.dominio.repositorios import RepositorioCompanias
 # from src.recopilacion.modulos.compania.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
-from compania.src.modulos.compania.dominio.entidades import Compania
-from compania.src.modulos.compania.dominio.fabricas import FabricaCompania
+from src.modulos.compania.dominio.entidades import Compania
+from src.modulos.compania.dominio.fabricas import FabricaCompania
 from .dto import Compania as CompaniaDTO
 from .mapeadores import MapeadorCompania
 from uuid import UUID

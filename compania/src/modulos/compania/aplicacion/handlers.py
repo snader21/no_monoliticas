@@ -1,7 +1,7 @@
-from compania.src.modulos.compania.dominio.eventos import PaisActualizado
-from compania.src.modulos.compania.infraestructura.schema.v1.eventos import CompaniaCreadaPayload, CreacionDeCompaniaFallidaPayload
-from compania.src.seedwork.aplicacion.handlers import Handler
-from compania.src.modulos.compania.infraestructura.despachadores import Despachador
+from src.modulos.compania.dominio.eventos import PaisActualizado
+from src.modulos.compania.infraestructura.schema.v1.eventos import CompaniaCreadaPayload, CreacionDeCompaniaFallidaPayload
+from src.seedwork.aplicacion.handlers import Handler
+from src.modulos.compania.infraestructura.despachadores import Despachador
 from pulsar.schema import AvroSchema
 
 class HandlerCompaniaIntegracion(Handler):

@@ -1,9 +1,9 @@
 import pulsar
 from pulsar.schema import *
 
-from transaccion.src.modulos.transaccion.infraestructura.schema.v1.eventos import VentaRealizadaPayload
-from transaccion.src.modulos.transaccion.infraestructura.schema.v1.comandos import ComandoCrearReserva, ComandoCrearReservaPayload
-from transaccion.src.seedwork.infraestructura import utils
+from src.modulos.transaccion.infraestructura.schema.v1.eventos import VentaRealizadaPayload
+from src.modulos.transaccion.infraestructura.schema.v1.comandos import ComandoCrearReserva, ComandoCrearReservaPayload
+from src.seedwork.infraestructura import utils
 
 import datetime
 

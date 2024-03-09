@@ -6,9 +6,9 @@ objetos complejos en la capa de infraestructura del dominio de vuelos
 """
 
 from dataclasses import dataclass, field
-from compania.src.seedwork.dominio.fabricas import Fabrica
-from compania.src.seedwork.dominio.repositorios import Repositorio
-from compania.src.modulos.compania.dominio.repositorios import RepositorioCompanias
+from src.seedwork.dominio.fabricas import Fabrica
+from src.seedwork.dominio.repositorios import Repositorio
+from src.modulos.compania.dominio.repositorios import RepositorioCompanias
 from .repositorios import RepositorioCompaniasPostgress
 # from .excepciones import ExcepcionFabrica
 

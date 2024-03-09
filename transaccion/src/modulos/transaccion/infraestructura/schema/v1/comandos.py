@@ -1,6 +1,6 @@
 from pulsar.schema import *
 from dataclasses import dataclass, field
-from transaccion.src.seedwork.infraestructura.schema.v1.comandos import (
+from src.seedwork.infraestructura.schema.v1.comandos import (
     ComandoIntegracion)
 
 

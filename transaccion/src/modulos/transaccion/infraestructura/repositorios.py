@@ -5,11 +5,11 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 
 """
 
-from transaccion.src import db
-from transaccion.src.modulos.transaccion.dominio.repositorios import RepositorioTransacciones
-from transaccion.src.modulos.transaccion.dominio.entidades import Transaccion
-from transaccion.src.modulos.transaccion.dominio.fabricas import FabricaTransaccion
-from transaccion.src.modulos.transaccion.infraestructura.mapeadores import MapeadorTransaccion
+from src import db
+from src.modulos.transaccion.dominio.repositorios import RepositorioTransacciones
+from src.modulos.transaccion.dominio.entidades import Transaccion
+from src.modulos.transaccion.dominio.fabricas import FabricaTransaccion
+from src.modulos.transaccion.infraestructura.mapeadores import MapeadorTransaccion
 from .dto import Transaccion as TransaccionDTO
 from .mapeadores import Mapeador
 from uuid import UUID

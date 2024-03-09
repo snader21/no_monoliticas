@@ -1,13 +1,13 @@
 import json
 from flask import Response, request
 from flask_restful import Resource
-from transaccion.src.modulos.transaccion.aplicacion.comandos.crear_transaccion import CrearTransaccion
-from transaccion.src.seedwork.aplicacion.comandos import ejecutar_commando
-from transaccion.src.seedwork.aplicacion.queries import ejecutar_query
-from transaccion.src.modulos.transaccion.aplicacion.queries.obtener_transacciones import ObtenerTransacciones
-from transaccion.src.modulos.transaccion.aplicacion.queries.obtener_transaccion_por_id import ObtenerTransaccionPorId
-from transaccion.src.seedwork.dominio.excepciones import ExcepcionDominio
-from transaccion.src.modulos.transaccion.aplicacion.mapeadores import MapeadorTransaccionDTOJson
+from src.modulos.transaccion.aplicacion.comandos.crear_transaccion import CrearTransaccion
+from src.seedwork.aplicacion.comandos import ejecutar_commando
+from src.seedwork.aplicacion.queries import ejecutar_query
+from src.modulos.transaccion.aplicacion.queries.obtener_transacciones import ObtenerTransacciones
+from src.modulos.transaccion.aplicacion.queries.obtener_transaccion_por_id import ObtenerTransaccionPorId
+from src.seedwork.dominio.excepciones import ExcepcionDominio
+from src.modulos.transaccion.aplicacion.mapeadores import MapeadorTransaccionDTOJson
 
 
 def anadir_endpoint_transaccion(api):
