@@ -1,4 +1,4 @@
-from limpieza.src.dominio.entidades import Propiedad
+from src.modulos.propiedad.dominio.entidades import Propiedad
 from src.modulos.propiedad.dominio.fabricas import FabricaPropiedad
 from src.modulos.propiedad.infraestructura.fabricas import FabricaRepositorio
 from src.modulos.propiedad.infraestructura.repositorios import RepositorioPropiedades

@@ -5,7 +5,7 @@ import uuid
 import time
 import logging
 import traceback
-from propiedades.src.modulos.propiedad.infraestructura.schema.v1.comandos import ComandoBorrarPropiedadPayload, ComandoCrearPropiedadPayload
+from src.modulos.propiedad.infraestructura.schema.v1.comandos import ComandoBorrarPropiedadPayload, ComandoCrearPropiedadPayload
 from src.app import app
 from src.modulos.propiedad.aplicacion.servicios import ServicioPropiedad
 from src.modulos.propiedad.infraestructura.schema.v1.eventos import (
