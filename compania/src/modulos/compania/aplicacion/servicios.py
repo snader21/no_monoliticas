@@ -28,7 +28,8 @@ class ServicioCompania(Servicio):
                                 identificacion= identificacion)
             repositorio = self.fabrica_repositorio.crear_objeto(RepositorioCompanias.__class__)
             id_compania = repositorio.agregar(compania)
-            dispatcher.send(signal='CompaniaCreada', evento=id_compania)
+            compania._id = id_compania
+            dispatcher.send(signal='CompaniaCreada', evento=compania)
         except Exception as e:
             print(e)
             dispatcher.send(signal='ErrorCreandoCompania', evento=id_correlacion)

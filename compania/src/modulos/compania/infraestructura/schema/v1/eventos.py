@@ -9,3 +9,5 @@ class CreacionDeCompaniaFallidaPayload(Record):
 
 class CompaniaCreadaPayload(Record):
     id_compania = String()
+    tipo_compania = String()
+    id_correlacion = String()
