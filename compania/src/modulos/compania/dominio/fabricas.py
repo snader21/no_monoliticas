@@ -8,9 +8,9 @@ objetos complejos del dominio de vuelos
 from .entidades import Compania
 from .reglas import PaisesValidos
 from .excepciones import TipoObjetoNoExisteEnDominioVuelosExcepcion
-from compania.src.seedwork.dominio.repositorios import Mapeador, Repositorio
-from compania.src.seedwork.dominio.fabricas import Fabrica
-from compania.src.seedwork.dominio.entidades import Entidad
+from src.seedwork.dominio.repositorios import Mapeador, Repositorio
+from src.seedwork.dominio.fabricas import Fabrica
+from src.seedwork.dominio.entidades import Entidad
 from dataclasses import dataclass
 
 @dataclass

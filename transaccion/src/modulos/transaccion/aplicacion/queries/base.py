@@ -1,6 +1,6 @@
-from transaccion.src.seedwork.aplicacion.queries import QueryHandler
-from transaccion.src.modulos.transaccion.infraestructura.fabricas import FabricaRepositorio
-from transaccion.src.modulos.transaccion.dominio.fabricas import FabricaTransaccion
+from src.seedwork.aplicacion.queries import QueryHandler
+from src.modulos.transaccion.infraestructura.fabricas import FabricaRepositorio
+from src.modulos.transaccion.dominio.fabricas import FabricaTransaccion
 
 class TransaccionQueryBaseHandler(QueryHandler):
     def __init__(self):

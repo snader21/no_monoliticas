@@ -1,9 +1,8 @@
 import pulsar
 from pulsar.schema import *
 
-from compania.src.modulos.compania.infraestructura.schema.v1.eventos import PaisActualizadoPayload
-from compania.src.modulos.compania.infraestructura.schema.v1.comandos import ComandoCrearReserva, ComandoCrearReservaPayload
-from compania.src.seedwork.infraestructura import utils
+from src.modulos.compania.infraestructura.schema.v1.eventos import PaisActualizadoPayload
+from src.seedwork.infraestructura import utils
 
 import datetime
 
@@ -17,7 +16,7 @@ class Despachador:
         try: 
             print('Publicando en el topico: ' + str(mensaje))
             cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-            publicador = cliente.create_producer(topico, schema=AvroSchema(PaisActualizadoPayload))
+            publicador = cliente.create_producer(topico, schema=schema)
             publicador.send(mensaje)
             cliente.close()
         except Exception as e:
@@ -30,12 +29,3 @@ class Despachador:
             pais_nuevo=str(evento.pais)
         )
         self._publicar_mensaje(payload, topico, AvroSchema(PaisActualizadoPayload))
-
-    def publicar_comando(self, comando, topico):
-        # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
-        payload = ComandoCrearReservaPayload(
-            id_usuario=str(comando.id_usuario)
-            # agregar itinerarios
-        )
-        comando_integracion = ComandoCrearReserva(data=payload)
-        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearReserva))

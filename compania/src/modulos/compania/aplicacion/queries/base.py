@@ -1,6 +1,6 @@
-from compania.src.seedwork.aplicacion.queries import QueryHandler
-from compania.src.modulos.compania.infraestructura.fabricas import FabricaRepositorio
-from compania.src.modulos.compania.dominio.fabricas import FabricaCompania
+from src.seedwork.aplicacion.queries import QueryHandler
+from src.modulos.compania.infraestructura.fabricas import FabricaRepositorio
+from src.modulos.compania.dominio.fabricas import FabricaCompania
 
 class CompaniaQueryBaseHandler(QueryHandler):
     def __init__(self):

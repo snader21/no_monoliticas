@@ -1,13 +1,13 @@
 from pydispatch import dispatcher
 from dataclasses import dataclass
-from transaccion.src.modulos.transaccion.aplicacion.comandos.base import CrearTransaccionBaseHandler
-from transaccion.src.modulos.transaccion.aplicacion.dto import TransaccionDTO
-from transaccion.src.modulos.transaccion.aplicacion.mapeadores import MapeadorTransaccion
-from transaccion.src.modulos.transaccion.dominio.entidades import Transaccion
-from transaccion.src.modulos.transaccion.dominio.objetos_valor import TipoTransaccion
-from transaccion.src.modulos.transaccion.infraestructura.repositorios import RepositorioTransacciones
-from transaccion.src.seedwork.aplicacion.comandos import Comando
-from transaccion.src.seedwork.aplicacion.comandos import ejecutar_commando as comando
+from src.modulos.transaccion.aplicacion.comandos.base import CrearTransaccionBaseHandler
+from src.modulos.transaccion.aplicacion.dto import TransaccionDTO
+from src.modulos.transaccion.aplicacion.mapeadores import MapeadorTransaccion
+from src.modulos.transaccion.dominio.entidades import Transaccion
+from src.modulos.transaccion.dominio.objetos_valor import TipoTransaccion
+from src.modulos.transaccion.infraestructura.repositorios import RepositorioTransacciones
+from src.seedwork.aplicacion.comandos import Comando
+from src.seedwork.aplicacion.comandos import ejecutar_commando as comando
 
 
 @dataclass

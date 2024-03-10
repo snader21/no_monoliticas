@@ -6,7 +6,7 @@ del dominio de vuelos
 """
 
 from abc import ABC
-from transaccion.src.seedwork.dominio.repositorios import Repositorio
+from src.seedwork.dominio.repositorios import Repositorio
 
 class RepositorioTransacciones(Repositorio, ABC):
     ...

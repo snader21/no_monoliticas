@@ -5,6 +5,7 @@ import uuid
 import time
 import logging
 import traceback
+from src.modulos.propiedad.infraestructura.schema.v1.comandos import ComandoBorrarPropiedadPayload, ComandoCrearPropiedadPayload
 from src.app import app
 from src.modulos.propiedad.aplicacion.servicios import ServicioPropiedad
 from src.modulos.propiedad.infraestructura.schema.v1.eventos import (
@@ -71,6 +72,50 @@ def suscribirse_a_eventos_de_limpieza():
 
     except Exception as e:
         logging.error('ERROR: Suscribiendose a los tópicos de eventos!')
+        traceback.print_exc()
+        if cliente:
+            cliente.close()
+
+
+def suscribirse_a_comando_creacion():
+    cliente = None
+    try:
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        consumidor = cliente.subscribe('crear-propiedad', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='propiedad-sub-eventos', schema=AvroSchema(ComandoCrearPropiedadPayload))
+
+        while True:
+            mensaje = consumidor.receive()
+            print(f'Evento de creacion de propiedades recibido: {mensaje.value()}')
+            with app.app_context():
+                ServicioPropiedad().crear_propiedad(mensaje.value().compania_duena, 
+                                                    mensaje.value().compania_arrendataria, 
+                                                    mensaje.value().direccion, 
+                                                    mensaje.value().tamano, 
+                                                    mensaje.value().pais_ubicacion, 
+                                                    mensaje.value().id_correlacion)
+            consumidor.acknowledge(mensaje)
+    except:
+        logging.error('ERROR: Suscribiendose al tópico de eventos crear compania!')
+        traceback.print_exc()
+        if cliente:
+            cliente.close()
+
+def suscribirse_a_comando_eliminacion():
+    cliente = None
+    try:
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        consumidor = cliente.subscribe('borrar-compania', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='compania-sub-eventos', schema=AvroSchema(ComandoBorrarPropiedadPayload))
+
+        while True:
+            mensaje = consumidor.receive()
+            print(f'Evento de eliminacion de propiedades recibido: {mensaje.value()}')
+            with app.app_context():
+                ServicioPropiedad().borrar_compania(
+                    mensaje.value().id_propiedad
+                )
+            consumidor.acknowledge(mensaje)
+    except:
+        logging.error('ERROR: Suscribiendose al tópico de eventos borrar compania!')
         traceback.print_exc()
         if cliente:
             cliente.close()

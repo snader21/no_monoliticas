@@ -1,9 +1,9 @@
-from transaccion.src.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
-from transaccion.src.seedwork.aplicacion.queries import ejecutar_query as query
-from transaccion.src.modulos.transaccion.infraestructura.repositorios import RepositorioTransacciones
+from src.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
+from src.seedwork.aplicacion.queries import ejecutar_query as query
+from src.modulos.transaccion.infraestructura.repositorios import RepositorioTransacciones
 from dataclasses import dataclass
 from .base import TransaccionQueryBaseHandler
-from transaccion.src.modulos.transaccion.aplicacion.mapeadores import MapeadorTransaccion
+from src.modulos.transaccion.aplicacion.mapeadores import MapeadorTransaccion
 import uuid
 
 

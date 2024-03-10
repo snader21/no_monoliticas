@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from marshmallow import fields, Schema
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
-from transaccion.src import db
+from src import db
 print(db)
 
 

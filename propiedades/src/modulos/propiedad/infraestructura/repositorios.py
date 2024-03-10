@@ -28,10 +28,11 @@ class RepositorioPropiedadesPostgress(RepositorioPropiedades):
         return self.fabrica_propiedad.crear_objeto(propiedad_dto, MapeadorPropiedad())
 
     def agregar(self, propiedad: Propiedad):
-        propiedad_dto = self.fabrica_propiedad.crear_objeto(
+        propiedad_dto: PropiedadDTO = self.fabrica_propiedad.crear_objeto(
             propiedad, MapeadorPropiedad())
         db.session.add(propiedad_dto)
         db.session.commit()
+        return propiedad_dto.id
 
     def actualizar(self, propiedad: Propiedad):
         propiedad_dto = db.session.query(
@@ -43,4 +44,8 @@ class RepositorioPropiedadesPostgress(RepositorioPropiedades):
         propiedad_dto.pais_ubicacion = propiedad.pais_ubicacion
         propiedad_dto.latitud = propiedad.latitud
         propiedad_dto.longitud = propiedad.longitud
+        db.session.commit()
+
+    def eliminar(self, id_propiedad: UUID):
+        db.session.query(PropiedadDTO).filter_by(id=str(id_propiedad)).delete()
         db.session.commit()

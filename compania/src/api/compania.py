@@ -1,13 +1,13 @@
 import json
 from flask import Response, request
 from flask_restful import Resource
-from compania.src.modulos.compania.aplicacion.comandos.actualizar_pais import ActualizarPais
-from compania.src.modulos.compania.aplicacion.comandos.crear_compania import CrearCompania
-from compania.src.modulos.compania.aplicacion.mapeadores import MapeadorCompaniaDTOJson
-from compania.src.modulos.compania.aplicacion.queries.obtener_compania import ObtenerCompania
-from compania.src.seedwork.aplicacion.comandos import ejecutar_commando
-from compania.src.seedwork.aplicacion.queries import ejecutar_query
-from compania.src.seedwork.dominio.excepciones import ExcepcionDominio
+from src.modulos.compania.aplicacion.comandos.actualizar_pais import ActualizarPais
+from src.modulos.compania.aplicacion.comandos.crear_compania import CrearCompania
+from src.modulos.compania.aplicacion.mapeadores import MapeadorCompaniaDTOJson
+from src.modulos.compania.aplicacion.queries.obtener_compania import ObtenerCompania
+from src.seedwork.aplicacion.comandos import ejecutar_commando
+from src.seedwork.aplicacion.queries import ejecutar_query
+from src.seedwork.dominio.excepciones import ExcepcionDominio
 
 
 def anadir_endpoint_compania(api):

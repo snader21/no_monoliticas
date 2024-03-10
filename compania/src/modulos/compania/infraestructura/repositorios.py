@@ -5,11 +5,11 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 
 """
 
-from compania.src import db
-from compania.src.modulos.compania.dominio.repositorios import RepositorioCompanias
+from src import db
+from src.modulos.compania.dominio.repositorios import RepositorioCompanias
 # from src.recopilacion.modulos.compania.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
-from compania.src.modulos.compania.dominio.entidades import Compania
-from compania.src.modulos.compania.dominio.fabricas import FabricaCompania
+from src.modulos.compania.dominio.entidades import Compania
+from src.modulos.compania.dominio.fabricas import FabricaCompania
 from .dto import Compania as CompaniaDTO
 from .mapeadores import MapeadorCompania
 from uuid import UUID
@@ -30,9 +30,11 @@ class RepositorioCompaniasPostgress(RepositorioCompanias):
         pass
 
     def agregar(self, compania: Compania):
-        compania_dto = self.fabrica_compania.crear_objeto(compania, MapeadorCompania())
+        compania_dto: CompaniaDTO = self.fabrica_compania.crear_objeto(compania, MapeadorCompania())
         db.session.add(compania_dto)
         db.session.commit()
+        print("COMPANIA ID", compania_dto.id)
+        return compania_dto.id
 
     def actualizar(self, compania: Compania):
         print('identificador:' + str(compania._id))
@@ -42,4 +44,8 @@ class RepositorioCompaniasPostgress(RepositorioCompanias):
         compania_dto.pais = compania.pais
         compania_dto.tipo = compania.tipo
         compania_dto.tipoPersona = compania.tipoPersona
+        db.session.commit()
+
+    def eliminar(self, id_compania: UUID):
+        db.session.query(CompaniaDTO).filter_by(id=str(id_compania)).delete()
         db.session.commit()

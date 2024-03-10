@@ -5,9 +5,9 @@ encargados de la transformación entre formatos de dominio y DTOs
 
 """
 
-from compania.src.seedwork.dominio.repositorios import Mapeador
-from compania.src.modulos.compania.dominio.objetos_valor import TipoCompania, TipoPersona
-from compania.src.modulos.compania.dominio.entidades import Compania
+from src.seedwork.dominio.repositorios import Mapeador
+from src.modulos.compania.dominio.objetos_valor import TipoCompania, TipoPersona
+from src.modulos.compania.dominio.entidades import Compania
 from .dto import Compania as CompaniaDTO
 
 class MapeadorCompania(Mapeador):

@@ -4,7 +4,7 @@ En este archivo usted encontrará reglas de negocio del dominio de cliente
 
 """
 
-from compania.src.seedwork.dominio.reglas import ReglaNegocio
+from src.seedwork.dominio.reglas import ReglaNegocio
 
 
 class PaisesValidos(ReglaNegocio):
