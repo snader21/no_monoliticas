@@ -1,7 +1,7 @@
 import json
 from flask import Response, request
 from flask_restful import Resource
-from src.aplicacion.comandos.crear_transaccion import CrearTransaccion
+from src.aplicacion.comandos.ejecutar_saga import EjecutarSaga
 from src.seedwork.aplicacion.comandos import ejecutar_commando
 from src.seedwork.dominio.excepciones import ExcepcionDominio
 
@@ -13,7 +13,7 @@ class TransactionEndPoints(Resource):
     def post(self):
         try:
             transaccion_dict = request.json
-            comando = CrearTransaccion(**transaccion_dict)
+            comando = EjecutarSaga(**transaccion_dict)
             ejecutar_commando(comando)
             return {'message': "Transaccion creada", "status": 202}
         except ExcepcionDominio as e:

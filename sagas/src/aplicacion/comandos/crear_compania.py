@@ -25,7 +25,7 @@ class CrearCompaniaHandler():
                                identificacion=comando.identificacion,
                                id_correlacion=comando.id_correlacion)
         print(f"Agregando la compañia {compania_dto}")
-        #dispatcher.send(signal='CrearCompania', evento=compania_dto)
+        dispatcher.send(signal='CrearCompania', evento=compania_dto)
 
 
 @comando.register(CrearCompania)

@@ -5,8 +5,19 @@ class CompaniaCreadaPayload(Record):
     id_correlacion = String()
     tipo = String()
 
-class CompaniaErrorPayload(Record):
+class CompaniaFallidaPayload(Record):
     id_compania = String()
     id_correlacion = String()
     tipo = String()
 
+class PropiedadCreadaPayload(Record):
+    ...
+
+class PropiedadFallidaPayload(Record):
+    ...
+
+class TransaccionCreadaPayload(Record):
+    ...
+
+class TransaccionFallidaPayload(Record):
+    ...

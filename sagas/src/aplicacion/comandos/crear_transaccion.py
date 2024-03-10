@@ -1,86 +1,37 @@
-from ast import List
+from src.infraestructura.schema.v1.comandos import ComandoCrearTransaccionPayload
+from src.seedwork.aplicacion.comandos import Comando
 from dataclasses import dataclass
-from src.aplicacion.comandos.crear_compania import CrearCompania
-from src.aplicacion.comandos.compensar_compania import CompensarCompania
-from src.seedwork.aplicacion.comandos import Comando
-from src.dominio.objetos_valor import TipoTransaccion
-from src.seedwork.aplicacion.comandos import Comando
-from src.seedwork.aplicacion.comandos import ejecutar_commando
-from pydispatch import dispatcher
-import uuid
-from src.seedwork.aplicacion.sagas import CoordinadorOrquestacion, TransaccionSaga, Inicio, Fin
-from src.aplicacion.coordinadores.saga_transacciones import CoordinadorReservas
-from src.aplicacion.eventos.compania_creada import CompaniaCreada
-from src.aplicacion.eventos.compania_error import CompaniaError
-from src.dominio.cache import CrearTransaccionCache, CompaniaCache, PropiedadCache, TransaccionCache
-from localStoragePy import localStoragePy
-import json
 from src.seedwork.aplicacion.comandos import ejecutar_commando as comando
+from pydispatch import dispatcher
 
-@dataclass
-class Compania():
-    tipo_persona: str
-    nombre: str
-    tipo: str
-    pais: str
-    identificacion: str
-
-@dataclass
-class Propiedad():
-    compania_duena: str
-    compania_arrendataria: str
-    direccion: str
-    tamano: int
-    pais_ubicacion: str
-    latitud: str
-    longitud: str
-
-@dataclass
-class Transaccion():
-    descripcion: str
-    tipo: TipoTransaccion
-    pais_transaccion_origen: str
-    valor_transaccion_subtotal: int
-    impuesto_transaccion: int
-    valor_transaccion_total: int
-    id_propiedad: str
 
 @dataclass
 class CrearTransaccion(Comando):
-    compania_origen: Compania
-    compania_destino: Compania
-    propiedad: Propiedad
-    transaccion: Transaccion
+    descripcion: str
+    tipo: str
+    compania_origen: str
+    compania_destino: str
+    pais_transaccion_origen: str
+    valor_transaccion_subtotal: str
+    id_propiedad: str
 
 class CrearTransaccionHandler():
 
-    local_storage = localStoragePy('saga', 'json')
-
     def handle(self, comando: CrearTransaccion):
-        id_correlacion = uuid.uuid4()
-        print(f"XXXXXX {comando.compania_origen['identificacion']}")
-    
-        transaccionCache_json = json.dumps(comando, default=lambda o: o.__dict__)
-        self.local_storage.setItem(str(id_correlacion),transaccionCache_json)
+        print(f"Agregando la transaccion")
+        transaccion_dto = ComandoCrearTransaccionPayload(descripcion=comando.descripcion,
+                                                         tipo=comando.tipo,
+                                                         compania_origen=comando.compania_origen,
+                                                         compania_destino=comando.compania_destino,
+                                                         pais_transaccion_origen=comando.pais_transaccion_origen,
+                                                         valor_transaccion_subtotal=comando.valor_transaccion_subtotal,
+                                                         id_propiedad=comando.id_propiedad)
 
-        cacheTransaccionprint = self.local_storage.getItem(str(id_correlacion))
-        print(f"Localstorage XXX {cacheTransaccionprint}")
-
-        comando = CrearCompania(id_correlacion=str(id_correlacion),  
-                        tipoPersona=comando.compania_origen['tipo_persona'],
-                        nombre=comando.compania_origen['nombre'],
-                        tipo=comando.compania_origen['tipo'],
-                        pais=comando.compania_origen['pais'],
-                        identificacion=comando.compania_origen['identificacion'])
-    
-        ejecutar_commando(comando)
-
-        #coordinador.procesar_evento(????)
-
-        dispatcher.send(signal='PropiedadCreadaIntegracion', evento=comando)
+        print(f"Agregando la transaccion {transaccion_dto}")
+        dispatcher.send(signal='CrearTransaccion', evento=transaccion_dto)
 
 
 @comando.register(CrearTransaccion)
-def ejecutar_comando_crear_propiedad(comando: CrearTransaccion):
+def ejecutar_comando_crear_transaccion(comando: CrearTransaccion):
     handler = CrearTransaccionHandler()
     handler.handle(comando)
