@@ -6,7 +6,7 @@ from src.seedwork.aplicacion.comandos import ejecutar_commando
 from src.seedwork.dominio.excepciones import ExcepcionDominio
 
 def anadir_endpoint_compania(api):
-    api.add_resource(TransactionEndPoints, '/tramsaccion/')
+    api.add_resource(TransactionEndPoints, '/transaccion/')
 
 
 class TransactionEndPoints(Resource):

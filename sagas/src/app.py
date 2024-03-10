@@ -2,6 +2,7 @@ import os
 
 from flask_restful import Api
 from src import create_app
+from src.aplicacion.transaction import anadir_endpoint_compania
 
 def comenzar_consumidor():
     import threading
@@ -12,4 +13,5 @@ def comenzar_consumidor():
 app = create_app()
 app.app_context().push()
 api = Api(app)
+anadir_endpoint_compania(api)
 #comenzar_consumidor()
