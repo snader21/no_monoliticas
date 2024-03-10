@@ -1,0 +1,8 @@
+from pydispatch import dispatcher
+from .handlers import HandlerTransaccionIntegracion
+
+dispatcher.connect(HandlerTransaccionIntegracion.handle_crear_compania, signal='CrearCompania')
+dispatcher.connect(HandlerTransaccionIntegracion.handle_crear_propiedad, signal='CrearPropiedad')
+dispatcher.connect(HandlerTransaccionIntegracion.handle_crear_transaccion, signal='CrearTransaccion')
+dispatcher.connect(HandlerTransaccionIntegracion.handle_compensar_compania, signal='CompensarCompania')
+dispatcher.connect(HandlerTransaccionIntegracion.handle_compensar_propiedad, signal='CompensarPropiedad')

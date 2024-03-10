@@ -19,3 +19,7 @@ class PropiedadCreadaPayload(Record):
 
 class CreacionDePropiedadFallidaPayload(Record):
     id_correlacion = String()
+
+class PropiedadCreadaSagaPayload(Record):
+    id_propiedad = String()
+    id_correlacion = String()

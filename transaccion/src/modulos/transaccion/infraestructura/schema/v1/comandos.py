@@ -20,6 +20,7 @@ class ComandoCrearTransaccionPayload(Record):
     pais_transaccion_origen = String()
     valor_transaccion_subtotal = Integer()
     id_propiedad = String()
+    id_correlacion = String()
 
 
 class ComandoBorrarTransaccionPayload(Record):

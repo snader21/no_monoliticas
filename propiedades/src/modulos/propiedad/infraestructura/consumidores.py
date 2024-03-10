@@ -104,13 +104,13 @@ def suscribirse_a_comando_eliminacion():
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('borrar-compania', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='compania-sub-eventos', schema=AvroSchema(ComandoBorrarPropiedadPayload))
+        consumidor = cliente.subscribe('borrar-propiedad', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='compania-sub-eventos', schema=AvroSchema(ComandoBorrarPropiedadPayload))
 
         while True:
             mensaje = consumidor.receive()
             print(f'Evento de eliminacion de propiedades recibido: {mensaje.value()}')
             with app.app_context():
-                ServicioPropiedad().borrar_compania(
+                ServicioPropiedad().borrar_propiedad(
                     mensaje.value().id_propiedad
                 )
             consumidor.acknowledge(mensaje)

@@ -48,7 +48,7 @@ class ServicioPropiedad(Servicio):
             )
             repositorio = self.fabrica_repositorio.crear_objeto(RepositorioPropiedades.__class__)
             id_propiedad = repositorio.agregar(propiedad)
-            dispatcher.send(signal='PropiedadCreadaIntegracion', evento={'id': id_propiedad, 'direccion': propiedad.direccion})
+            dispatcher.send(signal='PropiedadCreadaSaga', id_propiedad=str(id_propiedad), id_correlacion=id_correlacion)
         except Exception as e:
             print(e)
             dispatcher.send(signal='ErrorCreandopropiedad', evento=id_correlacion)

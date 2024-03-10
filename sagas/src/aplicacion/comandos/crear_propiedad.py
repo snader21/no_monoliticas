@@ -12,8 +12,7 @@ class CrearPropiedad(Comando):
     direccion: str
     tamano: int
     pais_ubicacion: str
-    latitud: str
-    longitud: str
+    id_correlacion: str
 
 class CrearPropiedadHandler():
 
@@ -24,8 +23,7 @@ class CrearPropiedadHandler():
                                                      direccion=comando.direccion,
                                                      tamano=comando.tamano,
                                                      pais_ubicacion=comando.pais_ubicacion,
-                                                     latitud=comando.latitud,
-                                                     longitud=comando.longitud)
+                                                     id_correlacion=comando.id_correlacion)
         print(f"Agregando la propiedad {propiedad_dto}")
         dispatcher.send(signal='CrearPropiedad', evento=propiedad_dto)
 

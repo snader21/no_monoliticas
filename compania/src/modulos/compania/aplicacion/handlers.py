@@ -12,10 +12,9 @@ class HandlerCompaniaIntegracion(Handler):
         despachador.publicar_evento(evento, 'eventos-compania')
     
     @staticmethod
-    def handle_compania_creada(evento):
-        print('HandlerCompaniaIntegracion.handle_compania_creada!!!!!!!')
+    def handle_compania_creada(evento, id_correlacion):
         despachador = Despachador()
-        despachador._publicar_mensaje(mensaje=CompaniaCreadaPayload(id_compania=evento.id, tipo_compania=evento.tipo_compania, id_correlacion=evento.id_correlacion), topico='compania-creada', schema=AvroSchema(CompaniaCreadaPayload))
+        despachador._publicar_mensaje(mensaje=CompaniaCreadaPayload(id_compania=evento._id, tipo=evento.tipo.value, id_correlacion=id_correlacion), topico='compania-creada', schema=AvroSchema(CompaniaCreadaPayload))
     
     @staticmethod
     def handle_creacion_de_compania_fallida(id_correlacion):

@@ -17,3 +17,4 @@ class CreacionDeTransaccionFallidaPayload(Record):
 
 class TransaccionCreadaPayload(Record):
     id_transaccion = String()
+    id_correlacion = String()

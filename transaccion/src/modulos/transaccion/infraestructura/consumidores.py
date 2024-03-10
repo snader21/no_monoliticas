@@ -55,7 +55,8 @@ def suscribirse_a_comando_creacion():
                     mensaje.value().compania_destino,
                     mensaje.value().pais_transaccion_origen,
                     mensaje.value().valor_transaccion_subtotal,
-                    mensaje.value().id_propiedad
+                    mensaje.value().id_propiedad,
+                    mensaje.value().id_correlacion
                 )
             consumidor.acknowledge(mensaje)
     except:

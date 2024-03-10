@@ -25,16 +25,16 @@ class ServicioTransaccion(Servicio):
     def fabrica_transacciones(self):
         return self._fabrica_transaccion
 
-    def crear_transaccion(self, descripcion: str, tipo: str, compania_origen: str, compania_destino: str, pais_transaccion_origen: str, valor_transaccion_subtotal: int, id_propiedad: str):
+    def crear_transaccion(self, descripcion: str, tipo: str, compania_origen: str, compania_destino: str, pais_transaccion_origen: str, valor_transaccion_subtotal: int, id_propiedad: str, id_correlacion: str):
         try:
             transaccion = Transaccion(descripcion=descripcion, tipo=tipo, compania_origen=compania_origen, compania_destino=compania_destino,
                                       pais_transaccion_origen=pais_transaccion_origen, valor_transaccion_subtotal=valor_transaccion_subtotal, id_propiedad=id_propiedad)
             repositorio = self.fabrica_repositorio.crear_objeto(
                 RepositorioTransacciones.__class__)
             id_transaccion = repositorio.agregar(transaccion)
-            dispatcher.send(signal='TransaccionCreada', evento=id_transaccion)
+            dispatcher.send(signal='TransaccionCreada', id_transaccion=str(id_transaccion), id_correlacion=id_correlacion)
         except Exception as e:
-            print(e)
+            print('ERROR AL CREAR LA TRANSACCION', e)
             dispatcher.send(signal='ErrorCreandoTransaccion',
                             evento=id_propiedad)
 

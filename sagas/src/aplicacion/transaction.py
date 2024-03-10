@@ -13,6 +13,7 @@ class TransactionEndPoints(Resource):
     def post(self):
         try:
             transaccion_dict = request.json
+            print(transaccion_dict)
             comando = EjecutarSaga(**transaccion_dict)
             ejecutar_commando(comando)
             return {'message': "Transaccion creada", "status": 202}

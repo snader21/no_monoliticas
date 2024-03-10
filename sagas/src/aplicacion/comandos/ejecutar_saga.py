@@ -10,8 +10,6 @@ from pydispatch import dispatcher
 import uuid
 from src.seedwork.aplicacion.sagas import CoordinadorOrquestacion, TransaccionSaga, Inicio, Fin
 from src.aplicacion.coordinadores.saga_transacciones import CoordinadorReservas
-from src.aplicacion.eventos.compania_creada import CompaniaCreada
-from src.aplicacion.eventos.compania_error import CompaniaError
 from src.dominio.cache import CrearTransaccionCache, CompaniaCache, PropiedadCache, TransaccionCache
 from localStoragePy import localStoragePy
 import json
@@ -60,8 +58,12 @@ class EjecutarSagaHandler():
         print(f"XXXXXX {comando.compania_origen['identificacion']}")
     
         transaccionCache_json = json.dumps(comando, default=lambda o: o.__dict__)
+        
         self.local_storage.setItem(str(id_correlacion),transaccionCache_json)
-
+        # cacheTransaccion = self.local_storage.getItem(str(id_correlacion))
+        # print('JSON O STRING', cacheTransaccion)
+        # transaccionCache_dict = json.loads(cacheTransaccion)
+        # print('JSON DICT', transaccionCache_dict)        
         comando = CrearCompania(id_correlacion=str(id_correlacion),  
                         tipoPersona=comando.compania_origen['tipo_persona'],
                         nombre=comando.compania_origen['nombre'],
@@ -78,5 +80,5 @@ class EjecutarSagaHandler():
 
 @comando.register(EjecutarSaga)
 def ejecutar_comando_crear_propiedad(comando: EjecutarSaga):
-    handler = EjecutarSaga()
+    handler = EjecutarSagaHandler()
     handler.handle(comando)

@@ -1,7 +1,7 @@
 from pulsar.schema import *
 from dataclasses import dataclass, field
 
-class ComandoCrearPropiedadPayload():
+class ComandoCrearPropiedadPayload(Record):
     compania_duena = String()
     compania_arrendataria = String()
     direccion = String()
@@ -9,5 +9,5 @@ class ComandoCrearPropiedadPayload():
     pais_ubicacion = String()
     id_correlacion = String()
 
-class ComandoBorrarPropiedadPayload():
+class ComandoBorrarPropiedadPayload(Record):
     id_propiedad = String()

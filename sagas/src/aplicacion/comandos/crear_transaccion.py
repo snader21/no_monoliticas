@@ -12,8 +12,9 @@ class CrearTransaccion(Comando):
     compania_origen: str
     compania_destino: str
     pais_transaccion_origen: str
-    valor_transaccion_subtotal: str
+    valor_transaccion_subtotal: int
     id_propiedad: str
+    id_correlacion: str
 
 class CrearTransaccionHandler():
 
@@ -25,7 +26,8 @@ class CrearTransaccionHandler():
                                                          compania_destino=comando.compania_destino,
                                                          pais_transaccion_origen=comando.pais_transaccion_origen,
                                                          valor_transaccion_subtotal=comando.valor_transaccion_subtotal,
-                                                         id_propiedad=comando.id_propiedad)
+                                                         id_propiedad=comando.id_propiedad,
+                                                         id_correlacion=comando.id_correlacion)
 
         print(f"Agregando la transaccion {transaccion_dto}")
         dispatcher.send(signal='CrearTransaccion', evento=transaccion_dto)

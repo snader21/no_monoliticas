@@ -5,14 +5,13 @@ import traceback
 from src.infraestructura.util import broker_host
 from src.infraestructura.schema.v1.eventos import CompaniaCreadaPayload, CompaniaFallidaPayload, PropiedadCreadaPayload, PropiedadFallidaPayload, TransaccionCreadaPayload, TransaccionFallidaPayload
 from src.aplicacion.coordinadores.saga_transacciones import ejecutarComandoCompania, ejecutarComandoTransaccion, ejecutarComandoCompensarCompania, ejecutarComandoCompensarPropiedad
-from src.aplicacion.eventos.compania_creada import CompaniaCreada
 from src.app import app
 
 def suscribirse_a_compania_creada():
     try:
         cliente = None
         cliente = pulsar.Client(f'pulsar://{broker_host()}:6650')
-        consumidor = cliente.subscribe('compania_creada', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='saga-sub-eventos', schema=AvroSchema(CompaniaCreadaPayload))
+        consumidor = cliente.subscribe('compania-creada', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='saga-sub-eventos', schema=AvroSchema(CompaniaCreadaPayload))
     
         while True:
             mensaje = consumidor.receive()
@@ -30,7 +29,7 @@ def suscribirse_a_compania_fallida():
     try:
         cliente = None
         cliente = pulsar.Client(f'pulsar://{broker_host()}:6650')
-        consumidor = cliente.subscribe('compania_fallida', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='saga-sub-eventos', schema=AvroSchema(CompaniaFallidaPayload))
+        consumidor = cliente.subscribe('creacion-de-compania-fallida', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='saga-sub-eventos', schema=AvroSchema(CompaniaFallidaPayload))
     
         while True:
             mensaje = consumidor.receive()
@@ -49,7 +48,7 @@ def suscribirse_a_propiedad_creada():
     try:
         cliente = None
         cliente = pulsar.Client(f'pulsar://{broker_host()}:6650')
-        consumidor = cliente.subscribe('propiedad_creada', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='saga-sub-eventos', schema=AvroSchema(PropiedadCreadaPayload))
+        consumidor = cliente.subscribe('propiedad-creada', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='saga-sub-eventos', schema=AvroSchema(PropiedadCreadaPayload))
     
         while True:
             mensaje = consumidor.receive()
@@ -86,7 +85,7 @@ def suscribirse_a_transaccion_creada():
     try:
         cliente = None
         cliente = pulsar.Client(f'pulsar://{broker_host()}:6650')
-        consumidor = cliente.subscribe('transaccion_creada', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='saga-sub-eventos', schema=AvroSchema(TransaccionCreadaPayload))
+        consumidor = cliente.subscribe('transaccion-creada', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='saga-sub-eventos', schema=AvroSchema(TransaccionCreadaPayload))
     
         while True:
             mensaje = consumidor.receive()
