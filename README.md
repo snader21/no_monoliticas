@@ -48,7 +48,9 @@ Desde el directorio principal ejecute el siguiente comando.
 docker compose up -d
 ```
 
-**Nota* Una vez ejecutado el contenedor, debera correr manualmente los microservicios (La idea es que en la ultima entrega ya podamos tener esto desplegado en el docker compose, pero por ahora es necesario correrlos por separado).
+**Nota* Una vez ejecutado el contenedor, ya deberia poder utilizar los componentes sin ningun problema con localhost.
+
+Para ver el swagger del BFF puede ingresar al sigueinte link: http://localhost:5005/docs
 
 ### Paso 2 Ejecutar los microservicios
 Desde el directorio principal ejecute en consolas separadas los siguientes comandos.
@@ -63,7 +65,7 @@ flask --app ./limpieza/src/app.py run --port=5003 #Microservicio de limpieza
 
 
 ### Ejecutar pruebas
-Para las pruebas crear una compañia inicialmente apuntando a al endpoint: (POST) http://127.0.0.1:5000/companias pasando este payload,
+Para las pruebas crear una compañia inicialmente apuntando a al endpoint: (POST) http://localhost:5000/companias pasando este payload,
 
 ```
 {
@@ -76,7 +78,7 @@ Para las pruebas crear una compañia inicialmente apuntando a al endpoint: (POST
 ```
 **Verifique en la base de datos que la compañia se haya creado correctamente 
 
-Luego asocie una transaccion a esa compañia mediante el EndPoint: (POST) http://127.0.0.1:5001/transacciones pasando el siguiente payload
+Luego asocie una transaccion a esa compañia mediante el EndPoint: (POST) http://localhost:5001/transacciones pasando el siguiente payload
 ```
 {
     "descripcion": "transaccion de venta",
@@ -91,7 +93,7 @@ Luego asocie una transaccion a esa compañia mediante el EndPoint: (POST) http:/
 ```
 **Verifique en la base de datos que la transaccion se haya creado correctamente
 
-Luego cambie de pais la compañia original mediante el EndPoint: (PATCH) http://127.0.0.1:5000/companias/<<uuid de la compañia creada en la base de datos>> pasando el siguiente payload
+Luego cambie de pais la compañia original mediante el EndPoint: (PATCH) http://localhost:5000/companias/<<uuid de la compañia creada en la base de datos>> pasando el siguiente payload
 ```
 {
     "pais": "Peru"
@@ -102,7 +104,7 @@ Luego cambie de pais la compañia original mediante el EndPoint: (PATCH) http://
 Los paises que puede elejir son (Colombia, Peru, Ecuador)
 
 ### Ejecutar pruebas entrega 2
-Cree una propiedad mediante el EndPoint: (POST) http://127.0.0.1:5002/propiedades pasando el siguiente payload
+Cree una propiedad mediante el EndPoint: (POST) http://localhost:5002/propiedades pasando el siguiente payload
 ```
 {
     "compania_duena": "dbd9e097-2b6f-4795-b798-389af600a018",
@@ -114,7 +116,7 @@ Cree una propiedad mediante el EndPoint: (POST) http://127.0.0.1:5002/propiedade
 ```
 **Verifique en la base de datos que la propiedad se haya creado correctamente (si el servicio de limpieza estaba en ejecucion las columnas latitud y longitud deberian estar calculadas)
 
-Cree una transaccion de tipo venta asociada a la propiedad que acaba de crear mediante el EndPoint: http://127.0.0.1:5001/transacciones pasando el siguiente payload
+Cree una transaccion de tipo venta asociada a la propiedad que acaba de crear mediante el EndPoint: http://localhost:5001/transacciones pasando el siguiente payload
 ```
 {
     "descripcion": "transaccion de venta",
@@ -128,3 +130,43 @@ Cree una transaccion de tipo venta asociada a la propiedad que acaba de crear me
 }
 ```
 **Verifique en la base de datos que el duaño de la propiedad se haya actualizado correctamente
+
+### Ejecutar pruebas entrega 3
+Cree una propiedad mediante el EndPoint: (POST) http://localhost:5004/transaccion pasando el siguiente payload
+```
+{
+  "compania_origen": {
+    "tipo_persona": "NATURAL",
+    "nombre": "nombre_compania_origen",
+    "tipo": "VENDEDOR",
+    "pais": "Peru",
+    "identificacion": "1012393445"
+  },
+  "compania_destino": {
+    "tipo_persona": "NATURAL",
+    "nombre": "nombre_compania_destino",
+    "tipo": "ARRENDATARIO",
+    "pais": "Colombia",
+    "identificacion": "identificacion_compania_destino"
+  },
+  "propiedad": {
+    "compania_duena": "compania_duena",
+    "compania_arrendataria": "compania_arrendataria",
+    "direccion": "direccion_propiedad",
+    "tamano": 100,
+    "pais_ubicacion": "Colombia"
+  },
+  "transaccion": {
+    "descripcion": "descripcion_transaccion",
+    "tipo": "VENTA",
+    "pais_transaccion_origen": "Colombia",
+    "valor_transaccion_subtotal": "error",
+    "impuesto_transaccion": 10,
+    "valor_transaccion_total": 210
+  }
+}
+```
+**Verifique en la base de datos que la propiedad, la transaccion y las compañias se hayan creado correctamente
+
+una vez hecho eso, puede hacer uso del bff con la documentacion de swagger que se encuentra en: http://localhost:5005/docs
+
