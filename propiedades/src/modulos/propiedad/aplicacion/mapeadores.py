@@ -30,6 +30,7 @@ class MapeadorPropiedad(RepMap):
         return Propiedad.__class__
 
     def entidad_a_dto(self, entidad: Propiedad) -> PropiedadDTO:
+        id_propiedad = str(entidad._id)
         compania_duena = entidad.compania_duena
         compania_arrendataria = entidad.compania_arrendataria
         direccion = entidad.direccion
@@ -37,7 +38,7 @@ class MapeadorPropiedad(RepMap):
         pais_ubicacion = entidad.pais_ubicacion
         latitud = entidad.latitud
         longitud = entidad.longitud
-        return PropiedadDTO(compania_duena, compania_arrendataria, direccion, tamano, pais_ubicacion, latitud, longitud)
+        return PropiedadDTO(id_propiedad, compania_duena, compania_arrendataria, direccion, tamano, pais_ubicacion, latitud, longitud)
 
     def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:
         propiedad = Propiedad()

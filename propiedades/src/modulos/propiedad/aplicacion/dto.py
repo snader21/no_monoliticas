@@ -4,6 +4,7 @@ from src.seedwork.aplicacion.dto import DTO
 
 @dataclass(frozen=True)
 class PropiedadDTO(DTO):
+    id: str = field(default_factory=str)
     compania_duena: str = field(default_factory=str)
     compania_arrendataria: str = field(default_factory=str)
     direccion: str = field(default_factory=str)
