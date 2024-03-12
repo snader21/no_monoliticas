@@ -9,7 +9,6 @@ from dataclasses import dataclass, field
 import uuid
 
 import src.modulos.compania.dominio.objetos_valor as ov
-# from aeroalpes.modulos.vuelos.dominio.eventos import ReservaCreada, ReservaAprobada, ReservaCancelada, ReservaPagada
 from src.seedwork.dominio.entidades import AgregacionRaiz, Entidad
 
 @dataclass
