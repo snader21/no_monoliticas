@@ -77,8 +77,8 @@ services:
       - managedLedgerDefaultWriteQuorum=1
       - managedLedgerDefaultAckQuorum=1
       - advertisedAddress=broker
-      # - advertisedListeners=external:pulsar://broker:6650
-      - advertisedListeners=external:pulsar://127.0.0.1:6650
+      - advertisedListeners=external:pulsar://broker:6650
+      # - advertisedListeners=external:pulsar://127.0.0.1:6650
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -111,44 +111,110 @@ services:
       timeout: 5s
       retries: 5
 
-  # compania:
-  #   build: ./compania
-  #   environment:
-  #     - DB_USER=postgres
-  #     - DB_PASSWORD=postgres
-  #     - DB_HOST=db
-  #     - DB_PORT=5432
-  #     - DB_NAME=pda
-  #     - BROKER_HOST=broker
-  #   restart: always
-  #   networks:
-  #     - pulsar
-  #   depends_on:
-  #     broker:
-  #       condition: service_healthy
-  #     db:
-  #       condition: service_healthy
-  #   ports:
-  #     - "5000:3000"
+  compania:
+    build: ./compania
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=pda
+      - BROKER_HOST=broker
+    restart: always
+    networks:
+      - pulsar
+    depends_on:
+      broker:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:3000"
   
-  # transaccion:
-  #   build: ./transaccion
-  #   environment:
-  #     - DB_USER=postgres
-  #     - DB_PASSWORD=postgres
-  #     - DB_HOST=db
-  #     - DB_PORT=5432
-  #     - DB_NAME=pda
-  #     - BROKER_HOST=broker
-  #   restart: always
-  #   networks:
-  #     - pulsar
-  #   depends_on:
-  #     broker:
-  #       condition: service_healthy
-  #     db:
-  #       condition: service_healthy
-  #   ports:
-  #     - "5001:3000"
+  transaccion:
+    build: ./transaccion
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=pda
+      - BROKER_HOST=broker
+    restart: always
+    networks:
+      - pulsar
+    depends_on:
+      broker:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - "5001:3000"
+
+  propiedades:
+    build: ./propiedades
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=pda
+      - BROKER_HOST=broker
+    restart: always
+    networks:
+      - pulsar
+    depends_on:
+      broker:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - "5002:3000"
+  
+  limpieza:
+    build: ./limpieza
+    environment:
+      - BROKER_HOST=broker
+    restart: always
+    networks:
+      - pulsar
+    depends_on:
+      broker:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - "5003:3000"
+  
+  sagas:
+    build: ./sagas
+    environment:
+      - BROKER_HOST=broker
+    restart: always
+    networks:
+      - pulsar
+    depends_on:
+      broker:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - "5004:3000"
+
+  bff:
+    build: ./bff
+    environment:
+      - PROPIEDADES_PATH=http://propiedades:3000
+      - COMPANIA_PATH=http://compania:3000
+    restart: always
+    networks:
+      - pulsar
+    depends_on:
+      broker:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    ports:
+      - "5005:3000"
 
   

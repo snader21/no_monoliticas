@@ -26,6 +26,10 @@ class RepositorioPropiedadesPostgress(RepositorioPropiedades):
         propiedad_dto = db.session.query(
             PropiedadDTO).filter_by(id=str(id)).one()
         return self.fabrica_propiedad.crear_objeto(propiedad_dto, MapeadorPropiedad())
+    
+    def obtener_todos(self) -> list[Propiedad]:
+        transacciones = db.session.query(PropiedadDTO).all()
+        return [self.fabrica_propiedad.crear_objeto(transaccion_dto, MapeadorPropiedad()) for transaccion_dto in transacciones]
 
     def agregar(self, propiedad: Propiedad):
         propiedad_dto: PropiedadDTO = self.fabrica_propiedad.crear_objeto(

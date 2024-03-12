@@ -15,7 +15,8 @@ RUN pip install --upgrade pip && \
 EXPOSE 3000
 
 # Define environment variable
-ENV FLASK_APP=./src/app.py
+WORKDIR /app/src
 
 # Run the application with a delay using the array format
-CMD ["flask", "run", "-h", "0.0.0.0", "-p", "3000"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "3000", "--reload"]
+

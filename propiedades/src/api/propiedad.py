@@ -7,7 +7,7 @@ from src.seedwork.dominio.excepciones import ExcepcionDominio
 from src.modulos.propiedad.aplicacion.mapeadores import MapeadorPropiedadDTOJson
 from src.modulos.propiedad.aplicacion.comandos.crear_propiedad import CrearPropiedad
 from src.modulos.propiedad.aplicacion.queries.obtener_propiedad import ObtenerPropiedad
-
+from src.modulos.propiedad.aplicacion.queries.obtener_propiedades import ObtenerPropiedades
 
 def anadir_endpoint_propiedad(api):
     api.add_resource(PropiedadEndPoints, '/propiedades/')
@@ -27,6 +27,11 @@ class PropiedadEndPoints(Resource):
             return {'message': "Propiedad creada", "status": 201}
         except ExcepcionDominio as e:
             return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
+        
+    def get(self):
+        query_resultado = ejecutar_query(ObtenerPropiedades())
+        map_reserva = MapeadorPropiedadDTOJson()
+        return [map_reserva.dto_a_externo(transaccion_dto) for transaccion_dto in query_resultado.resultado]
 
 
 class PropiedadIdEndPoints(Resource):

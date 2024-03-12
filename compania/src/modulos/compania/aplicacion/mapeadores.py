@@ -26,7 +26,7 @@ class MapeadorCompania(RepMap):
         tipo = entidad.tipo.value
         pais = entidad.pais
         identificacion = str(entidad.identificacion)
-        return CompaniaDTO(nombres, tipoPersona, tipo, pais, identificacion)
+        return CompaniaDTO(tipoPersona, nombres, tipo, pais, identificacion)
 
     def dto_a_entidad(self, dto: CompaniaDTO) -> Compania:
         compania = Compania()
