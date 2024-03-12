@@ -1,9 +1,14 @@
 version: "3.8"
+
+volumes:
+  zookeeper_data: {}
+  bookkeeper_data: {}
+
 networks:
   pulsar:
     driver: bridge
 services:
-# Start zookeeper
+  # Start zookeeper
   zookeeper:
     image: apachepulsar/pulsar:latest
     container_name: zookeeper
@@ -11,7 +16,7 @@ services:
     networks:
       - pulsar
     volumes:
-      - ./data/zookeeper:/pulsar/data/zookeeper
+      - zookeeper_data:/pulsar/data/zookeeper
     environment:
       - metadataStoreUrl=zk:zookeeper:2181
     command: >
@@ -23,7 +28,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 30
-# Init cluster metadata
+  # Init cluster metadata
   pulsar-init:
     container_name: pulsar-init
     hostname: pulsar-init
@@ -40,7 +45,7 @@ services:
     depends_on:
       zookeeper:
         condition: service_healthy
-# Start bookie
+  # Start bookie
   bookie:
     image: apachepulsar/pulsar:latest
     container_name: bookie
@@ -56,12 +61,12 @@ services:
         condition: service_healthy
       pulsar-init:
         condition: service_completed_successfully
-  # Map the local directory to the container to avoid bookie startup failure due to insufficient container disks.
+    # Map the local directory to the container to avoid bookie startup failure due to insufficient container disks.
     volumes:
-      - ./data/bookkeeper:/pulsar/data/bookkeeper
+      - bookkeeper_data:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf
       && exec bin/pulsar bookie"
-# Start broker
+  # Start broker
   broker:
     image: apachepulsar/pulsar:latest
     container_name: broker
@@ -130,7 +135,7 @@ services:
         condition: service_healthy
     ports:
       - "5000:3000"
-  
+
   transaccion:
     build: ./transaccion
     environment:
@@ -170,7 +175,7 @@ services:
         condition: service_healthy
     ports:
       - "5002:3000"
-  
+
   limpieza:
     build: ./limpieza
     environment:
@@ -185,7 +190,7 @@ services:
         condition: service_healthy
     ports:
       - "5003:3000"
-  
+
   sagas:
     build: ./sagas
     environment:
@@ -216,5 +221,3 @@ services:
         condition: service_healthy
     ports:
       - "5005:3000"
-
-  
